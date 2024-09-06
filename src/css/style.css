@@ -27,3 +27,43 @@
   background-color: black;
   padding: 1rem;
 }
+
+ul.results {
+  box-sizing: border-box;
+  list-style: none;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  justify-content: center;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.card {
+  border-radius: .5rem;
+  background-color: #1d1d1f;
+  overflow: hidden;
+  padding-bottom: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+}
+
+.card .movie-poster {
+  width: 100%;
+  height: 31.25rem;
+  object-fit: cover;
+}
+
+.card .card-content {
+  padding: .5rem 1rem;
+}
+
+.card .movie-title,
+.card .movie-year {
+  margin-bottom: .25rem;
+}
+
+.card .movie-title {
+  line-height: 1.75rem;
+}

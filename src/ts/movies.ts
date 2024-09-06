@@ -26,18 +26,35 @@ export function appendMovies(movies: Movie[]): void {
     // Clone the template content for each movie
     const movieCard = document.importNode(template.content, true);
 
-    // Set the movie poster, title, and year
+    // Set the movie poster
     const moviePoster = movieCard.querySelector<HTMLImageElement>(".movie-poster");
     if (moviePoster) {
       moviePoster.src = `${imageBaseURL}${movie.poster_path}`;
     }
+    // Set the movie title
     const movieTitle = movieCard.querySelector<HTMLHeadingElement>(".movie-title");
     if (movieTitle) {
       movieTitle.textContent = movie.title;
     }
+    // Set the movie year
     const movieYear = movieCard.querySelector<HTMLParagraphElement>(".movie-year");
     if (movieYear) {
       movieYear.textContent = movie.release_date.substring(0, 4);
+    }
+    // Set the movie vote average
+    const movieVoteAverage = movieCard.querySelector<HTMLDivElement>(".movie-vote-average");
+    if (movieVoteAverage) {
+      movieVoteAverage.textContent = movie.vote_average.toFixed(1);
+    }
+    // Set the movie genres
+    const movieGenre = movieCard.querySelector<HTMLDivElement>(".movie-genres");
+    if (movieGenre) {
+      movie.genre_ids.forEach((genreId) => movieGenre.appendChild(document.createElement("div")).textContent = genreId.toString());
+    }
+    // Set the movie overview
+    const movieOverview = movieCard.querySelector<HTMLDivElement>(".movie-overview");
+    if (movieOverview) {
+      movieOverview.textContent = movie.overview;
     }
 
     // Append the movie card to the results list
