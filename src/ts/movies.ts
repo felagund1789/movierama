@@ -44,6 +44,10 @@ export function appendMovies(movies: Movie[]): void {
     // Set the movie vote average
     const movieVoteAverage = movieCard.querySelector<HTMLDivElement>(".movie-vote-average");
     if (movieVoteAverage) {
+      let color = "green";
+      if (movie.vote_average < 8.5) color = "orange";
+      if (movie.vote_average < 6.5) color = "red";
+      movieVoteAverage.classList.add(color);
       movieVoteAverage.textContent = movie.vote_average.toFixed(1);
     }
     // Set the movie genres
