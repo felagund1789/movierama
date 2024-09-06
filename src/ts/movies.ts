@@ -17,6 +17,7 @@ interface Movie {
 
 const results = document.querySelector("ul.results");
 const template = document.querySelector<HTMLTemplateElement>("#movie-card");
+const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 
 export function appendMovies(movies: Movie[]): void {
   if (!template || !results) return;
@@ -28,7 +29,7 @@ export function appendMovies(movies: Movie[]): void {
     // Set the movie poster, title, and year
     const moviePoster = movieCard.querySelector<HTMLImageElement>(".movie-poster");
     if (moviePoster) {
-      moviePoster.src = movie.poster_path;
+      moviePoster.src = `${imageBaseURL}${movie.poster_path}`;
     }
     const movieTitle = movieCard.querySelector<HTMLHeadingElement>(".movie-title");
     if (movieTitle) {
