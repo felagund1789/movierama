@@ -26,6 +26,39 @@
   justify-content: space-between;
   background-color: black;
   padding: 1rem;
+  position: sticky;
+  top: 0;
+}
+
+.content {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.content h2.page-title {
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  position: sticky;
+  top: 0;
+}
+@media (max-width: 768px) {
+  .content h2.page-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #242424;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    margin: 0;
+    width: 100%;
+    height: 3.5rem;
+    font-size: 2rem;
+    top: 5rem;
+  }
 }
 
 ul.results {
