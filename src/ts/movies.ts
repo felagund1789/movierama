@@ -1,4 +1,6 @@
-interface Movie {
+import { getGenreName } from "./genres";
+
+export interface Movie {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -15,9 +17,9 @@ interface Movie {
   vote_count: number;
 }
 
+const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 const results = document.querySelector("ul.results");
 const template = document.querySelector<HTMLTemplateElement>("#movie-card");
-const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 
 export function appendMovies(movies: Movie[]): void {
   if (!template || !results) return;
@@ -27,22 +29,27 @@ export function appendMovies(movies: Movie[]): void {
     const movieCard = document.importNode(template.content, true);
 
     // Set the movie poster
-    const moviePoster = movieCard.querySelector<HTMLImageElement>(".movie-poster");
+    const moviePoster =
+      movieCard.querySelector<HTMLImageElement>(".movie-poster");
     if (moviePoster) {
       moviePoster.src = `${imageBaseURL}${movie.poster_path}`;
     }
     // Set the movie title
-    const movieTitle = movieCard.querySelector<HTMLHeadingElement>(".movie-title");
+    const movieTitle =
+      movieCard.querySelector<HTMLHeadingElement>(".movie-title");
     if (movieTitle) {
       movieTitle.textContent = movie.title;
     }
     // Set the movie year
-    const movieYear = movieCard.querySelector<HTMLParagraphElement>(".movie-year");
+    const movieYear =
+      movieCard.querySelector<HTMLParagraphElement>(".movie-year");
     if (movieYear) {
       movieYear.textContent = movie.release_date.substring(0, 4);
     }
     // Set the movie vote average
-    const movieVoteAverage = movieCard.querySelector<HTMLDivElement>(".movie-vote-average");
+    const movieVoteAverage = movieCard.querySelector<HTMLDivElement>(
+      ".movie-vote-average"
+    );
     if (movieVoteAverage) {
       let color = "green";
       if (movie.vote_average < 8.5) color = "orange";
@@ -53,10 +60,17 @@ export function appendMovies(movies: Movie[]): void {
     // Set the movie genres
     const movieGenre = movieCard.querySelector<HTMLDivElement>(".movie-genres");
     if (movieGenre) {
-      movie.genre_ids.forEach((genreId) => movieGenre.appendChild(document.createElement("div")).textContent = genreId.toString());
+      movie.genre_ids
+        .map((genreId) => getGenreName(genreId))
+        .forEach(
+          (genre) =>
+            (movieGenre.appendChild(document.createElement("div")).textContent =
+              genre)
+        );
     }
     // Set the movie overview
-    const movieOverview = movieCard.querySelector<HTMLDivElement>(".movie-overview");
+    const movieOverview =
+      movieCard.querySelector<HTMLDivElement>(".movie-overview");
     if (movieOverview) {
       movieOverview.textContent = movie.overview;
     }
