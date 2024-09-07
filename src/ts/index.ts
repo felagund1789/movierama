@@ -1,6 +1,7 @@
 import apiClient from "./api-client";
 import { appendMovies } from "./movies";
 
+const pageTitle = document.querySelector<HTMLHeadingElement>("#page-title");
 const searchInput = document.querySelector<HTMLInputElement>("#search-input");
 let isFetching = true;
 let currentPage = 1;
@@ -13,6 +14,9 @@ searchInput?.addEventListener(
       isFetching = true;
       currentPage = 1;
       fetchSearchResults(query, currentPage);
+      if (pageTitle) {
+        pageTitle.innerText = `Search results for "${query}"`;
+      }
     }
   },
   { passive: true }

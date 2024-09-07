@@ -29,7 +29,7 @@
   position: sticky;
   top: 0;
 }
-@media (max-width: 56rem) {
+@media (max-width: 60rem) {
   .header {
     height: 10rem;
     flex-direction: column;
@@ -44,7 +44,7 @@
   color: rgba(255, 255, 255, 0.87);
   margin-right: 2rem;
 }
-@media (max-width: 56rem) {
+@media (max-width: 60rem) {
   .header h1 {
     margin: 0;
   }
@@ -56,7 +56,7 @@
   align-items: center;
   justify-content: center;
 }
-@media (max-width: 56rem) {
+@media (max-width: 60rem) {
   .header .search-container {
     width: 100%;
     margin: 0 0.25rem;
@@ -81,7 +81,7 @@
   color: rgba(255, 255, 255, 0.87);
   font-size: 1.25rem;
 }
-@media (max-width: 56rem) {
+@media (max-width: 60rem) {
   .header .search-container input {
     font-size: .875rem;
     width: 100%;
@@ -114,7 +114,7 @@
   position: sticky;
   top: 0;
 }
-@media (max-width: 56rem) {
+@media (max-width: 90rem) {
   .content h2.page-title {
     display: flex;
     justify-content: center;
@@ -123,7 +123,12 @@
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
     margin: 0;
     width: 100%;
-    height: 3.5rem;
+    min-height: 3.5rem;
+    top: 6rem;
+  }
+}
+@media (max-width: 60rem) {
+  .content h2.page-title {
     font-size: 1.5rem;
     top: 10rem;
   }
