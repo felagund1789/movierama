@@ -2,11 +2,12 @@ import { Movie } from "./api-client";
 import { getGenreName } from "./genres";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
-const results = document.querySelector("div.results");
-const template = document.querySelector<HTMLTemplateElement>("#movie-card");
 
 export function appendMovies(movies: Movie[]): void {
-  if (!template || !results) return;
+  const results = document.querySelector("div.results");
+  const template = document.querySelector<HTMLTemplateElement>("#movie-card");
+
+  if (!template || !results) throw new Error("Template or results not found");
 
   movies.forEach((movie) => {
     // Clone the template content for each movie
@@ -29,7 +30,9 @@ function setMoviePoster(movieCard: DocumentFragment, movie: Movie): void {
   const moviePoster =
     movieCard.querySelector<HTMLImageElement>(".movie-poster");
   if (moviePoster) {
-    moviePoster.src = movie.poster_path ? `${imageBaseURL}${movie.poster_path}` : "/poster-placeholder-dark.png";
+    moviePoster.src = movie.poster_path
+      ? `${imageBaseURL}${movie.poster_path}`
+      : "/poster-placeholder-dark.png";
     moviePoster.alt = movie.title;
     moviePoster.title = movie.title;
     moviePoster.addEventListener("click", (event) => {
@@ -59,7 +62,10 @@ function setMovieYear(movieCard: DocumentFragment, release_date: string): void {
   }
 }
 
-function setMovieVoteAverage(movieCard: DocumentFragment, vote_average: number): void {
+function setMovieVoteAverage(
+  movieCard: DocumentFragment,
+  vote_average: number
+): void {
   const movieVoteAverage = movieCard.querySelector<HTMLDivElement>(
     ".movie-vote-average"
   );
@@ -72,7 +78,10 @@ function setMovieVoteAverage(movieCard: DocumentFragment, vote_average: number):
   }
 }
 
-function setMovieGenres(movieCard: DocumentFragment, genre_ids: number[]): void {
+function setMovieGenres(
+  movieCard: DocumentFragment,
+  genre_ids: number[]
+): void {
   const movieGenre = movieCard.querySelector<HTMLDivElement>(".movie-genres");
   if (movieGenre) {
     genre_ids
