@@ -23,19 +23,20 @@ export interface Movie {
   vote_count: number;
 }
 
-interface GetGenresResponse {
+interface GenresResponse {
   genres: Genre[];
 }
 
-interface GetNowPlayingResponse {
-  dates: {
-    maximum: string;
-    minimum: string;
-  };
+interface MoviesResponse {
   page: number;
   results: Movie[];
   total_pages: number;
   total_results: number;
+}
+
+interface SearchParms {
+  page: number;
+  query: string;
 }
 
 class ApiClient {
@@ -44,12 +45,19 @@ class ApiClient {
     return response.json();
   }
 
-  async getGenres(): Promise<GetGenresResponse> {
+  async getGenres(): Promise<GenresResponse> {
     return this.fetch("/genre/movie/list?");
   }
 
-  async getNowPlaying({ page = 1 }: { page: number }): Promise<GetNowPlayingResponse> {
+  async getNowPlaying({ page }: { page: number }): Promise<MoviesResponse> {
     return this.fetch(`/movie/now_playing?page=${page.toString()}`);
+  }
+
+  async searchMovies({
+    page,
+    query,
+  }: SearchParms): Promise<MoviesResponse> {
+    return this.fetch(`/search/movie?query=${encodeURIComponent(query)}&page=${page.toString()}`);
   }
 }
 
