@@ -12,12 +12,19 @@ searchInput?.addEventListener(
   "input",
   (event) => {
     const query = (event.target as HTMLInputElement).value.trim();
-    if (query.length > 2) {
+    if (query.length > 0) {
       isFetching = true;
       currentPage = 1;
       fetchSearchResults(query, currentPage);
       if (pageTitle) {
         pageTitle.innerText = `Search results for "${query}"`;
+      }
+    } else {
+      isFetching = true;
+      currentPage = 1;
+      fetchNowPlaying(currentPage);
+      if (pageTitle) {
+        pageTitle.innerText = "In Theaters";
       }
     }
   },
