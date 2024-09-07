@@ -12,8 +12,8 @@ export function appendMovies(movies: Movie[]): void {
     // Clone the template content for each movie
     const movieCard = document.importNode(template.content, true);
 
-    setMoviePoster(movieCard, movie.poster_path);
-    setMovieTitle(movieCard, movie.title);
+    setMoviePoster(movieCard, movie);
+    setMovieTitle(movieCard, movie);
     setMovieYear(movieCard, movie.release_date);
     setMovieVoteAverage(movieCard, movie.vote_average);
     setMovieGenres(movieCard, movie.genre_ids);
@@ -25,19 +25,29 @@ export function appendMovies(movies: Movie[]): void {
 }
 
 /* Helper functions for setting movie card content */
-function setMoviePoster(movieCard: DocumentFragment, poster_path: string | null): void {
+function setMoviePoster(movieCard: DocumentFragment, movie: Movie): void {
   const moviePoster =
     movieCard.querySelector<HTMLImageElement>(".movie-poster");
   if (moviePoster) {
-    moviePoster.src = poster_path ? `${imageBaseURL}${poster_path}` : "/poster-placeholder-dark.png";
+    moviePoster.src = movie.poster_path ? `${imageBaseURL}${movie.poster_path}` : "/poster-placeholder-dark.png";
+    moviePoster.alt = movie.title;
+    moviePoster.title = movie.title;
+    moviePoster.addEventListener("click", (event) => {
+      event.preventDefault();
+      alert(`${movie.title}\n\n${movie.overview}`);
+    });
   }
 }
 
-function setMovieTitle(movieCard: DocumentFragment, title: string): void {
+function setMovieTitle(movieCard: DocumentFragment, movie: Movie): void {
   const movieTitle =
     movieCard.querySelector<HTMLHeadingElement>(".movie-title");
   if (movieTitle) {
-    movieTitle.textContent = title;
+    movieTitle.textContent = movie.title;
+    movieTitle.addEventListener("click", (event) => {
+      event.preventDefault();
+      alert(`${movie.title}\n\n${movie.overview}`);
+    });
   }
 }
 

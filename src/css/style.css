@@ -168,6 +168,11 @@
 
 .card .card-content .movie-title {
   line-height: 1.75rem;
+  text-decoration: none;
+  color: rgba(255, 255, 255, .87);
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 .card .card-content .year-and-score {
