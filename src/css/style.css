@@ -65,6 +65,7 @@
 
 .header .search-container label {
   position: relative;
+  top: .125rem;
   left: 2.5rem;
 }
 

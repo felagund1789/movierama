@@ -12,54 +12,73 @@ export function appendMovies(movies: Movie[]): void {
     // Clone the template content for each movie
     const movieCard = document.importNode(template.content, true);
 
-    // Set the movie poster
-    const moviePoster =
-      movieCard.querySelector<HTMLImageElement>(".movie-poster");
-    if (moviePoster) {
-      moviePoster.src = `${imageBaseURL}${movie.poster_path}`;
-    }
-    // Set the movie title
-    const movieTitle =
-      movieCard.querySelector<HTMLHeadingElement>(".movie-title");
-    if (movieTitle) {
-      movieTitle.textContent = movie.title;
-    }
-    // Set the movie year
-    const movieYear =
-      movieCard.querySelector<HTMLParagraphElement>(".movie-year");
-    if (movieYear) {
-      movieYear.textContent = movie.release_date.substring(0, 4);
-    }
-    // Set the movie vote average
-    const movieVoteAverage = movieCard.querySelector<HTMLDivElement>(
-      ".movie-vote-average"
-    );
-    if (movieVoteAverage) {
-      let color = "green";
-      if (movie.vote_average < 8.5) color = "orange";
-      if (movie.vote_average < 6.5) color = "red";
-      movieVoteAverage.classList.add(color);
-      movieVoteAverage.textContent = movie.vote_average.toFixed(1);
-    }
-    // Set the movie genres
-    const movieGenre = movieCard.querySelector<HTMLDivElement>(".movie-genres");
-    if (movieGenre) {
-      movie.genre_ids
-        .map((genreId) => getGenreName(genreId))
-        .forEach(
-          (genre) =>
-            (movieGenre.appendChild(document.createElement("div")).textContent =
-              genre)
-        );
-    }
-    // Set the movie overview
-    const movieOverview =
-      movieCard.querySelector<HTMLDivElement>(".movie-overview");
-    if (movieOverview) {
-      movieOverview.textContent = movie.overview;
-    }
+    setMoviePoster(movieCard, movie);
+    setMovieTitle(movieCard, movie);
+    setMovieYear(movieCard, movie);
+    setMovieVoteAverage(movieCard, movie);
+    setMovieGenres(movieCard, movie);
+    setMovieOverview(movieCard, movie);
 
     // Append the movie card to the results list
     results.appendChild(movieCard);
   });
+}
+
+/* Helper functions for setting movie card content */
+function setMoviePoster(movieCard: DocumentFragment, movie: Movie): void {
+  const moviePoster =
+    movieCard.querySelector<HTMLImageElement>(".movie-poster");
+  if (moviePoster) {
+    moviePoster.src = `${imageBaseURL}${movie.poster_path}`;
+  }
+}
+
+function setMovieTitle(movieCard: DocumentFragment, movie: Movie): void {
+  const movieTitle =
+    movieCard.querySelector<HTMLHeadingElement>(".movie-title");
+  if (movieTitle) {
+    movieTitle.textContent = movie.title;
+  }
+}
+
+function setMovieYear(movieCard: DocumentFragment, movie: Movie): void {
+  const movieYear =
+    movieCard.querySelector<HTMLParagraphElement>(".movie-year");
+  if (movieYear) {
+    movieYear.textContent = movie.release_date.substring(0, 4);
+  }
+}
+
+function setMovieVoteAverage(movieCard: DocumentFragment, movie: Movie): void {
+  const movieVoteAverage = movieCard.querySelector<HTMLDivElement>(
+    ".movie-vote-average"
+  );
+  if (movieVoteAverage) {
+    let color = "green";
+    if (movie.vote_average < 8.5) color = "orange";
+    if (movie.vote_average < 6.5) color = "red";
+    movieVoteAverage.classList.add(color);
+    movieVoteAverage.textContent = movie.vote_average.toFixed(1);
+  }
+}
+
+function setMovieGenres(movieCard: DocumentFragment, movie: Movie): void {
+  const movieGenre = movieCard.querySelector<HTMLDivElement>(".movie-genres");
+  if (movieGenre) {
+    movie.genre_ids
+      .map((genreId) => getGenreName(genreId))
+      .forEach(
+        (genre) =>
+          (movieGenre.appendChild(document.createElement("div")).textContent =
+            genre)
+      );
+  }
+}
+
+function setMovieOverview(movieCard: DocumentFragment, movie: Movie): void {
+  const movieOverview =
+    movieCard.querySelector<HTMLDivElement>(".movie-overview");
+  if (movieOverview) {
+    movieOverview.textContent = movie.overview;
+  }
 }
