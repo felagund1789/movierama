@@ -136,20 +136,19 @@
   }
 }
 
-ul.results {
+.results {
   box-sizing: border-box;
-  list-style: none;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   justify-content: center;
   align-items: start;
-  flex-wrap: wrap;
   gap: 1.5rem;
   padding: 1rem;
 }
 
 .card {
+  max-width: 25rem;
   border-radius: .5rem;
   background-color: #1d1d1f;
   overflow: hidden;

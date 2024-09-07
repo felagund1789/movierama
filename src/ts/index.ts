@@ -3,6 +3,8 @@ import { appendMovies } from "./movies";
 
 const pageTitle = document.querySelector<HTMLHeadingElement>("#page-title");
 const searchInput = document.querySelector<HTMLInputElement>("#search-input");
+const results = document.querySelector<HTMLDivElement>("div.results");
+
 let isFetching = true;
 let currentPage = 1;
 
@@ -36,7 +38,6 @@ window.addEventListener("scroll", async () => {
 });
 
 function clearResults(): void {
-  const results = document.querySelector("ul.results");
   if (results) {
     results.innerHTML = "";
   }

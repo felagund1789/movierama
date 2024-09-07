@@ -2,7 +2,7 @@ import { Movie } from "./api-client";
 import { getGenreName } from "./genres";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
-const results = document.querySelector("ul.results");
+const results = document.querySelector("div.results");
 const template = document.querySelector<HTMLTemplateElement>("#movie-card");
 
 export function appendMovies(movies: Movie[]): void {
