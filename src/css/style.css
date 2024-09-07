@@ -105,12 +105,14 @@
 }
 
 .content h2.page-title {
+  box-sizing: border-box;
   font-size: 2.5rem;
   font-weight: 600;
-  height: 6rem;
+  min-height: 6rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
   position: sticky;
   top: 0;
 }
