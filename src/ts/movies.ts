@@ -3,26 +3,21 @@ import { getGenreName } from "./genres";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 
-export function appendMovies(movies: Movie[]): void {
-  const results = document.querySelector("div.results");
+export function createMovieCard(movie: Movie) {
   const template = document.querySelector<HTMLTemplateElement>("#movie-card");
+  if (!template) throw new Error("Movie template not found!");
 
-  if (!template || !results) throw new Error("Template or results not found");
+  // Clone the template content for each movie
+  const movieCard = document.importNode(template.content, true);
 
-  movies.forEach((movie) => {
-    // Clone the template content for each movie
-    const movieCard = document.importNode(template.content, true);
+  setMoviePoster(movieCard, movie);
+  setMovieTitle(movieCard, movie);
+  setMovieYear(movieCard, movie.release_date);
+  setMovieVoteAverage(movieCard, movie.vote_average);
+  setMovieGenres(movieCard, movie.genre_ids);
+  setMovieOverview(movieCard, movie.overview);
 
-    setMoviePoster(movieCard, movie);
-    setMovieTitle(movieCard, movie);
-    setMovieYear(movieCard, movie.release_date);
-    setMovieVoteAverage(movieCard, movie.vote_average);
-    setMovieGenres(movieCard, movie.genre_ids);
-    setMovieOverview(movieCard, movie.overview);
-
-    // Append the movie card to the results list
-    results.appendChild(movieCard);
-  });
+  return movieCard;
 }
 
 /* Helper functions for setting movie card content */
