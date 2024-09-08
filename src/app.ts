@@ -1,5 +1,7 @@
-import apiClient, { Movie } from "./api-client";
-import { createMovieCard } from "./movies";
+import "./app.css";
+import { createMovieCard } from "./movieCard/movieCard";
+import apiClient from "./services/api-client";
+import { Movie } from "./types";
 
 class App {
 

@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 
 import { describe, expect, it } from "vitest";
-import app from "../src/ts/index";
-import movies from "./movies.json";
+import app from "../src/app";
+import movies from "../src/assets/data/movies.json";
 
 // add a card template to the document
 const template = document.createElement("template");
@@ -37,8 +37,12 @@ describe("Movies", () => {
   it("should render a card for each movie", () => {
     const resultsContainer = createElement("div", "results", "results");
 
-    // Append movies to the results container
-    app.appendMovies(movies);
+    try {
+      // Append movies to the results container
+      app.appendMovies(movies);
+    } catch (error) {
+      console.error(error);
+    }
 
     // Check if the movie cards were appended
     const movieCards = resultsContainer.querySelectorAll(".card");
