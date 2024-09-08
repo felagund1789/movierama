@@ -67,7 +67,10 @@ class App {
     const results = document.querySelector<HTMLDivElement>("div.results");
     if (results) {
       movies.forEach((movie) => {
-        const movieCard = new MovieCard(movie);
+        const movieCard = new MovieCard(movie, (event) => {
+          event.preventDefault();
+          alert(`${movie.title}\n\n${movie.overview}`);
+        });
     
         // Append the movie card to the results list
         results.appendChild(movieCard);

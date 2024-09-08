@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vitest } from "vitest";
 import { MovieCard } from "../src/movieCard/movieCard";
 import { Movie } from "../src/types";
 
@@ -47,7 +47,7 @@ describe("MovieCard test", () => {
     };
 
     // Create a new instance of MovieCard
-    const movieCard = new MovieCard(movie);
+    const movieCard = new MovieCard(movie, vitest.fn());
 
     // Assert that the movie card has been created
     expect(movieCard).toBeDefined();

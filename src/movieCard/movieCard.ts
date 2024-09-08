@@ -5,8 +5,7 @@ import "./movieCard.css";
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 
 export class MovieCard extends DocumentFragment {
-
-  constructor(movie: Movie) {
+  constructor(movie: Movie, onClickHandler: (event: Event) => void) {
     super();
     const template = document.querySelector<HTMLTemplateElement>("#movie-card");
     if (!template) throw new Error("Movie template not found!");
@@ -20,6 +19,13 @@ export class MovieCard extends DocumentFragment {
     setMovieVoteAverage(movieCard, movie.vote_average);
     setMovieGenres(movieCard, movie.genre_ids);
     setMovieOverview(movieCard, movie.overview);
+
+    movieCard
+      .querySelector(".movie-title")
+      ?.addEventListener("click", onClickHandler);
+    movieCard
+      .querySelector(".movie-poster")
+      ?.addEventListener("click", onClickHandler);
 
     return movieCard;
   }
@@ -35,10 +41,6 @@ function setMoviePoster(movieCard: DocumentFragment, movie: Movie): void {
       : "/poster-placeholder-dark.png";
     moviePoster.alt = movie.title;
     moviePoster.title = movie.title;
-    moviePoster.addEventListener("click", (event) => {
-      event.preventDefault();
-      alert(`${movie.title}\n\n${movie.overview}`);
-    });
   }
 }
 
@@ -47,10 +49,6 @@ function setMovieTitle(movieCard: DocumentFragment, movie: Movie): void {
     movieCard.querySelector<HTMLHeadingElement>(".movie-title");
   if (movieTitle) {
     movieTitle.textContent = movie.title;
-    movieTitle.addEventListener("click", (event) => {
-      event.preventDefault();
-      alert(`${movie.title}\n\n${movie.overview}`);
-    });
   }
 }
 
