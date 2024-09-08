@@ -1,24 +1,28 @@
-import { Movie } from "../types";
 import { getGenreName } from "../services/genres";
+import { Movie } from "../types";
 import "./movieCard.css";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 
-export function createMovieCard(movie: Movie) {
-  const template = document.querySelector<HTMLTemplateElement>("#movie-card");
-  if (!template) throw new Error("Movie template not found!");
+export class MovieCard extends DocumentFragment {
 
-  // Clone the template content for each movie
-  const movieCard = document.importNode(template.content, true);
+  constructor(movie: Movie) {
+    super();
+    const template = document.querySelector<HTMLTemplateElement>("#movie-card");
+    if (!template) throw new Error("Movie template not found!");
 
-  setMoviePoster(movieCard, movie);
-  setMovieTitle(movieCard, movie);
-  setMovieYear(movieCard, movie.release_date);
-  setMovieVoteAverage(movieCard, movie.vote_average);
-  setMovieGenres(movieCard, movie.genre_ids);
-  setMovieOverview(movieCard, movie.overview);
+    // Clone the template content for each movie
+    const movieCard = document.importNode(template.content, true);
 
-  return movieCard;
+    setMoviePoster(movieCard, movie);
+    setMovieTitle(movieCard, movie);
+    setMovieYear(movieCard, movie.release_date);
+    setMovieVoteAverage(movieCard, movie.vote_average);
+    setMovieGenres(movieCard, movie.genre_ids);
+    setMovieOverview(movieCard, movie.overview);
+
+    return movieCard;
+  }
 }
 
 /* Helper functions for setting movie card content */

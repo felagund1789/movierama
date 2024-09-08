@@ -25,7 +25,11 @@ template.innerHTML = `
   `;
 document.body.appendChild(template);
 
-function createElement(tag: string, id: string, className: string): HTMLElement {
+function createElement(
+  tag: string,
+  id: string,
+  className: string
+): HTMLElement {
   const container = document.createElement(tag);
   container.id = id;
   container.classList.add(className);
@@ -33,7 +37,7 @@ function createElement(tag: string, id: string, className: string): HTMLElement 
   return container;
 }
 
-describe("Movies", () => {
+describe("App tests", () => {
   it("should render a card for each movie", () => {
     const resultsContainer = createElement("div", "results", "results");
 
@@ -52,7 +56,9 @@ describe("Movies", () => {
       expect(movieCard.querySelector(".movie-title")?.textContent).toBe(
         movie.title
       );
-      expect(movieCard.querySelector(".movie-year")?.textContent).toBe(movie.release_date.substring(0, 4)); // year
+      expect(movieCard.querySelector(".movie-year")?.textContent).toBe(
+        movie.release_date.substring(0, 4)
+      ); // year
       expect(movieCard.querySelector(".movie-vote-average")?.textContent).toBe(
         movie.vote_average.toFixed(1)
       );

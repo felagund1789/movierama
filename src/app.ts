@@ -1,5 +1,5 @@
 import "./app.css";
-import { createMovieCard } from "./movieCard/movieCard";
+import { MovieCard } from "./movieCard/movieCard";
 import apiClient from "./services/api-client";
 import { Movie } from "./types";
 
@@ -68,7 +68,7 @@ class App {
     if (!results) throw new Error("Results container not found");
     
     movies.forEach((movie) => {
-      const movieCard = createMovieCard(movie);
+      const movieCard = new MovieCard(movie);
   
       // Append the movie card to the results list
       results.appendChild(movieCard);
