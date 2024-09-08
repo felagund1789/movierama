@@ -65,14 +65,14 @@ class App {
 
   appendMovies = (movies: Movie[]): void => {
     const results = document.querySelector<HTMLDivElement>("div.results");
-    if (!results) throw new Error("Results container not found");
+    if (results) {
+      movies.forEach((movie) => {
+        const movieCard = new MovieCard(movie);
     
-    movies.forEach((movie) => {
-      const movieCard = new MovieCard(movie);
-  
-      // Append the movie card to the results list
-      results.appendChild(movieCard);
-    });
+        // Append the movie card to the results list
+        results.appendChild(movieCard);
+      });
+    }
   }
   
   fetchSearchResults = async (query: string, page: number) => {

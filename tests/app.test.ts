@@ -67,4 +67,29 @@ describe("App tests", () => {
       );
     });
   });
+
+  it("should update the page title with the given string", () => {
+    // Create a page title element
+    const pageTitle = createElement("h2", "page-title", "page-title");
+
+    // Call the updateResultsPageTitle method
+    app.updateResultsPageTitle("Search results");
+
+    // check if the page title was updated
+    expect(pageTitle.innerText).toBe("Search results");
+  });
+
+  it("should clear the results container", () => {
+    // Create a results container
+    const resultsContainer = createElement("div", "results", "results");
+
+    // Append a child element to the results container
+    resultsContainer.appendChild(document.createElement("div"));
+
+    // Call the clearResults method
+    app.clearResults();
+
+    // Check if the results container is empty
+    expect(resultsContainer.textContent).toBe("");
+  });
 });
