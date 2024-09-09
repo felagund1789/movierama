@@ -1,0 +1,27 @@
+.trailers-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  box-sizing: border-box;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: rgba(0, 0, 0, .75);
+  border-radius: 10px;
+}
+
+.trailers {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+
+.trailer iframe.video {
+  border: none;
+  outline: none;
+}
