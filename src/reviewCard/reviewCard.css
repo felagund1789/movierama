@@ -1,0 +1,27 @@
+.review-card {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: start;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-radius: 5rem;
+  gap: 1rem;
+}
+.author {
+  min-width: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 0.5rem;
+}
+.author img.author-avatar {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+}
+.review h3 {
+  text-wrap: wrap;
+  width: 25rem;
+}
