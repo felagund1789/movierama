@@ -1,3 +1,4 @@
+import apiClient from "../services/api-client";
 import { getGenreName } from "../services/genres";
 import { Movie } from "../types";
 import "./movieDetails.css";
@@ -20,6 +21,18 @@ export class MovieDetails extends DocumentFragment {
     setMovieVoteAverage(movieDetails, movie.vote_average);
     setMovieGenres(movieDetails, movie.genre_ids);
     setMovieOverview(movieDetails, movie.overview);
+
+    apiClient.getMovieTrailers(movie.id).then((response) => {
+      console.log(response.results);
+    });
+
+    apiClient.getMovieReviews(movie.id).then((response) => {
+      console.log(response.results);
+    });
+
+    apiClient.getSimilarMovies(movie.id).then((response) => {
+      console.log(response.results);
+    });
 
     return movieDetails;
   }
