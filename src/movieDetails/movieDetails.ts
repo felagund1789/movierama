@@ -3,6 +3,7 @@ import { Movie } from "../types";
 import "./movieDetails.css";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
+const imageFullBaseURL = import.meta.env.VITE_TMDB_IMAGE_FULL_BASE_URL;
 
 export class MovieDetails extends DocumentFragment {
   constructor(movie: Movie) {
@@ -12,8 +13,9 @@ export class MovieDetails extends DocumentFragment {
 
     const movieDetails = document.importNode(template.content, true);
 
+    setMovieBackdrop(movieDetails, movie.backdrop_path);
     setMoviePoster(movieDetails, movie);
-    setMovieTitle(movieDetails, movie);
+    setMovieTitle(movieDetails, movie.title);
     setMovieYear(movieDetails, movie.release_date);
     setMovieVoteAverage(movieDetails, movie.vote_average);
     setMovieGenres(movieDetails, movie.genre_ids);
@@ -24,6 +26,14 @@ export class MovieDetails extends DocumentFragment {
 }
 
 /* Helper functions for setting movie card content */
+function setMovieBackdrop(movieDetails: DocumentFragment, backdrop_path: string): void {
+  const detailsBody =
+    movieDetails.querySelector<HTMLDivElement>(".details");
+  if (detailsBody && backdrop_path) {
+    detailsBody.style.backgroundImage = `url(${imageFullBaseURL}${backdrop_path})`;
+  }
+}
+
 function setMoviePoster(movieDetails: DocumentFragment, movie: Movie): void {
   const moviePoster =
     movieDetails.querySelector<HTMLImageElement>(".movie-poster");
@@ -36,11 +46,11 @@ function setMoviePoster(movieDetails: DocumentFragment, movie: Movie): void {
   }
 }
 
-function setMovieTitle(movieDetails: DocumentFragment, movie: Movie): void {
+function setMovieTitle(movieDetails: DocumentFragment, title: string): void {
   const movieTitle =
     movieDetails.querySelector<HTMLHeadingElement>(".movie-title");
   if (movieTitle) {
-    movieTitle.textContent = movie.title;
+    movieTitle.textContent = title;
   }
 }
 
