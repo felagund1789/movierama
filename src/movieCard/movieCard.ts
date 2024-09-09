@@ -10,7 +10,6 @@ export class MovieCard extends DocumentFragment {
     const template = document.querySelector<HTMLTemplateElement>("#movie-card");
     if (!template) throw new Error("Movie template not found!");
 
-    // Clone the template content for each movie
     const movieCard = document.importNode(template.content, true);
 
     setMoviePoster(movieCard, movie);

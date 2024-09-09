@@ -1,5 +1,6 @@
 import "./app.css";
 import { MovieCard } from "./movieCard/movieCard";
+import { MovieDetails } from "./movieDetails/movieDetails";
 import apiClient from "./services/api-client";
 import { Movie } from "./types";
 
@@ -69,7 +70,8 @@ class App {
       movies.forEach((movie) => {
         const movieCard = new MovieCard(movie, (event) => {
           event.preventDefault();
-          alert(`${movie.title}\n\n${movie.overview}`);
+          // alert(`${movie.title}\n\n${movie.overview}`);
+          this.showMovieDetails(movie);
         });
     
         // Append the movie card to the results list
@@ -78,6 +80,29 @@ class App {
     }
   }
   
+  showMovieDetails = (movie: Movie) => {
+    const movieDetails = new MovieDetails(movie);
+    const movieDetailsDialog = document.querySelector<HTMLDialogElement>("#movie-details-dialog");
+    if (movieDetailsDialog) {
+      movieDetailsDialog.innerHTML = "";
+      movieDetailsDialog.appendChild(movieDetails);
+      movieDetailsDialog.showModal();
+      
+      movieDetailsDialog.addEventListener("close", () => {
+        // Enable scrolling on the body
+        document.body.style.overflow = "auto";
+      });
+
+      movieDetailsDialog.querySelector<HTMLButtonElement>(".close-button")?.addEventListener("click", () => {
+        console.log("Close dialog");
+        movieDetailsDialog.close();
+      });
+      
+      // Disable scrolling on the body
+      document.body.style.overflow = "hidden";
+    }
+  }
+
   fetchSearchResults = async (query: string, page: number) => {
     const response = await apiClient.searchMovies({ query, page });
     if (page === 1) this.clearResults();
