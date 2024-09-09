@@ -1,7 +1,7 @@
 .card {
   max-width: 25rem;
   border-radius: .5rem;
-  background-color: #1d1d1f;
+  background-color: var(--card-bg-color);
   overflow: hidden;
   padding-bottom: 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
@@ -20,7 +20,7 @@
 .card .card-content .movie-title {
   line-height: 1.75rem;
   text-decoration: none;
-  color: rgba(255, 255, 255, .87);
+  color: var(--text-color);
   display: block;
   font-size: 1.5em;
   font-weight: bold;
@@ -44,13 +44,13 @@
   margin-right: 0.25rem;
 }
 .card .card-content .movie-vote-average.green {
-  background-color: rgba(76, 175, 80, .85);
+  background-color: var(--green-color);
 }
 .card .card-content .movie-vote-average.orange {
-  background-color: rgba(255, 152, 0, .85);
+  background-color: var(--orange-color);
 }
 .card .card-content .movie-vote-average.red {
-  background-color: rgba(244, 67, 54, .85);
+  background-color: var(--red-color);
 }
 
 .card .card-content .movie-genres {

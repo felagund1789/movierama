@@ -1,14 +1,35 @@
 :root {
+  --bg-color: #242424;
+  --card-bg-color: #1d1d1f;
+  --header-bg-color: #000000;
+  --text-color: rgba(255, 255, 255, 0.87);
+  --highlight-color: rgba(255, 255, 255, 0.6);
+  --green-color: rgba(76, 175, 80, .85);
+  --orange-color: rgba(255, 152, 0, .85);
+  --red-color: rgba(244, 67, 54, .85);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+@media(prefers-color-scheme: light) {
+  :root {
+    --bg-color: #ffffff;
+    --card-bg-color: #fdfeff;
+    --header-bg-color: #c70303;
+    --text-color: rgba(0, 0, 0, 0.87);
+    --highlight-color: rgba(0, 0, 0, 0.6);
+    --highlight-color: rgba(255, 255, 255, 0.6);
+    --green-color: rgba(76, 175, 80, 1);
+    --orange-color: rgb(255, 208, 0);
+    --red-color: rgb(224, 49, 36);
+  }
 }
 
 * {
@@ -24,7 +45,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: black;
+  background-color: var(--header-bg-color);
   padding: 1rem;
   position: sticky;
   top: 0;
@@ -43,7 +64,7 @@
 .header h1 {
   font-size: 3.25rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--text-color);
   margin-right: 2rem;
 }
 @media (max-width: 60rem) {
@@ -77,10 +98,10 @@
   height: 3rem;
   padding: 0.5rem 2.75rem;
   border-radius: 100px;
-  border: 1px solid #1d1d1f;
+  border: 1px solid var(--card-bg-color);
   outline: none;
-  background-color: #1d1d1f;
-  color: rgba(255, 255, 255, 0.87);
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
   font-size: 1.25rem;
 }
 @media (max-width: 60rem) {
@@ -90,10 +111,10 @@
   }
 }
 .header .search-container input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--highlight-color);
 }
 .header .search-container input:focus {
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--highlight-color);
   outline: none;
 }
 
@@ -123,7 +144,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #242424;
+    background-color: var(--bg-color);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
     margin: 0;
     width: 100%;
