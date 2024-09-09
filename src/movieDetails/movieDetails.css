@@ -149,7 +149,8 @@
 }
 
 .trailers-container,
-.reviews-container {
+.reviews-container,
+.similar-movies-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -162,7 +163,8 @@
   border-radius: 10px;
 }
 
-.trailers, .reviews {
+.trailers, .reviews, 
+.similar-movies-container .movies {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -170,6 +172,11 @@
   align-items: start;
   gap: 1rem;
   box-sizing: border-box;
+}
+
+.similar-movies-container .movies .card {
+  width: 100%;
+  max-width: 12.475rem;
 }
 
 @keyframes open {
