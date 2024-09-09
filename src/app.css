@@ -140,7 +140,7 @@
   box-sizing: border-box;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, 20rem);
   justify-content: center;
   align-items: start;
   gap: 1.5rem;
