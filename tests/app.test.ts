@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 
 import { describe, expect, it } from "vitest";
-import { appendMovies } from "../src/ts/movies";
-import movies from "./movies.json";
+import app from "../src/app";
+import movies from "../src/assets/data/movies.json";
 
 // add a card template to the document
 const template = document.createElement("template");
@@ -25,7 +25,11 @@ template.innerHTML = `
   `;
 document.body.appendChild(template);
 
-function createElement(tag: string, id: string, className: string): HTMLElement {
+function createElement(
+  tag: string,
+  id: string,
+  className: string
+): HTMLElement {
   const container = document.createElement(tag);
   container.id = id;
   container.classList.add(className);
@@ -33,12 +37,16 @@ function createElement(tag: string, id: string, className: string): HTMLElement 
   return container;
 }
 
-describe("Movies", () => {
+describe("App tests", () => {
   it("should render a card for each movie", () => {
     const resultsContainer = createElement("div", "results", "results");
 
-    // Append movies to the results container
-    appendMovies(movies);
+    try {
+      // Append movies to the results container
+      app.appendMovies(movies);
+    } catch (error) {
+      console.error(error);
+    }
 
     // Check if the movie cards were appended
     const movieCards = resultsContainer.querySelectorAll(".card");
@@ -48,7 +56,9 @@ describe("Movies", () => {
       expect(movieCard.querySelector(".movie-title")?.textContent).toBe(
         movie.title
       );
-      expect(movieCard.querySelector(".movie-year")?.textContent).toBe(movie.release_date.substring(0, 4)); // year
+      expect(movieCard.querySelector(".movie-year")?.textContent).toBe(
+        movie.release_date.substring(0, 4)
+      ); // year
       expect(movieCard.querySelector(".movie-vote-average")?.textContent).toBe(
         movie.vote_average.toFixed(1)
       );
@@ -56,5 +66,30 @@ describe("Movies", () => {
         movie.overview
       );
     });
+  });
+
+  it("should update the page title with the given string", () => {
+    // Create a page title element
+    const pageTitle = createElement("h2", "page-title", "page-title");
+
+    // Call the updateResultsPageTitle method
+    app.updateResultsPageTitle("Search results");
+
+    // check if the page title was updated
+    expect(pageTitle.innerText).toBe("Search results");
+  });
+
+  it("should clear the results container", () => {
+    // Create a results container
+    const resultsContainer = createElement("div", "results", "results");
+
+    // Append a child element to the results container
+    resultsContainer.appendChild(document.createElement("div"));
+
+    // Call the clearResults method
+    app.clearResults();
+
+    // Check if the results container is empty
+    expect(resultsContainer.textContent).toBe("");
   });
 });

@@ -1,15 +1,15 @@
-import { Movie } from "./api-client";
-import { getGenreName } from "./genres";
+import { getGenreName } from "../services/genres";
+import { Movie } from "../types";
+import "./movieCard.css";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 
-export function appendMovies(movies: Movie[]): void {
-  const results = document.querySelector("div.results");
-  const template = document.querySelector<HTMLTemplateElement>("#movie-card");
+export class MovieCard extends DocumentFragment {
+  constructor(movie: Movie, onClickHandler: (event: Event) => void) {
+    super();
+    const template = document.querySelector<HTMLTemplateElement>("#movie-card");
+    if (!template) throw new Error("Movie template not found!");
 
-  if (!template || !results) throw new Error("Template or results not found");
-
-  movies.forEach((movie) => {
     // Clone the template content for each movie
     const movieCard = document.importNode(template.content, true);
 
@@ -20,9 +20,15 @@ export function appendMovies(movies: Movie[]): void {
     setMovieGenres(movieCard, movie.genre_ids);
     setMovieOverview(movieCard, movie.overview);
 
-    // Append the movie card to the results list
-    results.appendChild(movieCard);
-  });
+    movieCard
+      .querySelector(".movie-title")
+      ?.addEventListener("click", onClickHandler);
+    movieCard
+      .querySelector(".movie-poster")
+      ?.addEventListener("click", onClickHandler);
+
+    return movieCard;
+  }
 }
 
 /* Helper functions for setting movie card content */
@@ -35,10 +41,6 @@ function setMoviePoster(movieCard: DocumentFragment, movie: Movie): void {
       : "/poster-placeholder-dark.png";
     moviePoster.alt = movie.title;
     moviePoster.title = movie.title;
-    moviePoster.addEventListener("click", (event) => {
-      event.preventDefault();
-      alert(`${movie.title}\n\n${movie.overview}`);
-    });
   }
 }
 
@@ -47,10 +49,6 @@ function setMovieTitle(movieCard: DocumentFragment, movie: Movie): void {
     movieCard.querySelector<HTMLHeadingElement>(".movie-title");
   if (movieTitle) {
     movieTitle.textContent = movie.title;
-    movieTitle.addEventListener("click", (event) => {
-      event.preventDefault();
-      alert(`${movie.title}\n\n${movie.overview}`);
-    });
   }
 }
 
