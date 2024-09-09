@@ -19,3 +19,29 @@ export interface Movie {
   vote_average: number;
   vote_count: number;
 }
+
+export interface Trailer {
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: Date;
+  id: string;
+}
+
+export interface Review {
+  author: string;
+  author_details: {
+    name: string,
+    username: string;
+    avatar_path: string;
+    rating: number;
+  };
+  content: string;
+  created_at: string;
+  id: string;
+  updated_at: Date;
+  url: string;
+}
