@@ -17,7 +17,7 @@
 @media(min-width:60rem) {
   .movie-details-dialog {
     width: min(60rem, 100%);
-    height: fit-content;
+    height: max-content;
     margin: auto;
   }
 }
@@ -76,6 +76,7 @@
   box-sizing: border-box;
   padding: 1rem;
   background-color: rgba(0, 0, 0, .75);
+  border-radius: 10px;
 }
 
 .details .details-text .movie-title {
