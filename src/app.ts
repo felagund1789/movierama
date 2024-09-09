@@ -2,7 +2,8 @@ import "./app.css";
 import { MovieCard } from "./movieCard/movieCard";
 import { MovieDetails } from "./movieDetails/movieDetails";
 import apiClient from "./services/api-client";
-import { Movie } from "./types";
+import { Movie, Trailer } from "./types";
+import { YoutubeTrailer } from "./youtubeTrailer/youtubeTrailer";
 
 class App {
 
@@ -88,6 +89,7 @@ class App {
       movieDetailsDialog.appendChild(movieDetails);
       movieDetailsDialog.showModal();
       
+      
       movieDetailsDialog.addEventListener("close", () => {
         // Enable scrolling on the body
         document.body.style.overflow = "auto";
@@ -102,9 +104,33 @@ class App {
       setTimeout(() => {
         document.body.style.overflow = "hidden";
       }, 500);
+
+      apiClient.getMovieTrailers(movie.id).then((response) => {
+        console.log(response.results);
+        this.addMovieTrailers(movieDetailsDialog, response.results);
+      });
+
+      apiClient.getMovieReviews(movie.id).then((response) => {
+        console.log(response.results);
+      });
+
+      apiClient.getSimilarMovies(movie.id).then((response) => {
+        console.log(response.results);
+      });
     }
   }
 
+  addMovieTrailers = (movieDetails: HTMLDialogElement, trailers: Trailer[]): void => {
+    const trailersContainer =
+      movieDetails.querySelector<HTMLDivElement>(".trailers-container .trailers");
+    if (trailersContainer) {
+      trailers.filter((trailer) => trailer.site === "YouTube").slice(0, 4).forEach((trailer) => {
+        const youtubeTrailer = new YoutubeTrailer(trailer);
+        trailersContainer.appendChild(youtubeTrailer);
+      });
+    } else throw new Error("Trailers container not found!");
+  }
+  
   fetchSearchResults = async (query: string, page: number) => {
     const response = await apiClient.searchMovies({ query, page });
     if (page === 1) this.clearResults();
