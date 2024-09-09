@@ -25,9 +25,8 @@
     --header-bg-color: #c70303;
     --text-color: rgba(0, 0, 0, 0.87);
     --highlight-color: rgba(0, 0, 0, 0.6);
-    --highlight-color: rgba(255, 255, 255, 0.6);
     --green-color: rgba(76, 175, 80, 1);
-    --orange-color: rgb(255, 208, 0);
+    --orange-color: rgba(255, 152, 0, .85);
     --red-color: rgb(224, 49, 36);
   }
 }
@@ -88,6 +87,7 @@
 
 .header .search-container label {
   position: relative;
+  fill: var(--text-color);
   top: .125rem;
   left: 2.5rem;
 }

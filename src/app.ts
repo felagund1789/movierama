@@ -123,12 +123,16 @@ class App {
   addMovieTrailers = (movieDetails: HTMLDialogElement, trailers: Trailer[]): void => {
     const trailersContainer =
       movieDetails.querySelector<HTMLDivElement>(".trailers-container .trailers");
-    if (trailersContainer) {
+    if (!trailersContainer) return;
+
+    if (trailers.length === 0 && trailersContainer.parentElement) {
+      trailersContainer.parentElement.style.display = "none"; // Hide the trailers section
+    } else {
       trailers.filter((trailer) => trailer.site === "YouTube").slice(0, 4).forEach((trailer) => {
         const youtubeTrailer = new YoutubeTrailer(trailer);
         trailersContainer.appendChild(youtubeTrailer);
       });
-    } else throw new Error("Trailers container not found!");
+    }
   }
   
   fetchSearchResults = async (query: string, page: number) => {
