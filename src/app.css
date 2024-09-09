@@ -22,7 +22,6 @@
   :root {
     --bg-color: #ffffff;
     --card-bg-color: #fdfeff;
-    --header-bg-color: #c70303;
     --text-color: rgba(0, 0, 0, 0.87);
     --highlight-color: rgba(0, 0, 0, 0.6);
     --green-color: rgba(76, 175, 80, 1);
@@ -61,9 +60,10 @@
 }
 
 .header h1 {
+  font-family: Impact, Haettenschweiler, 'Arial Bold', sans-serif;
   font-size: 3.25rem;
   font-weight: 600;
-  color: var(--text-color);
+  color: var(--orange-color);
   margin-right: 2rem;
 }
 @media (max-width: 60rem) {

@@ -1,8 +1,9 @@
 import "./app.css";
 import { MovieCard } from "./movieCard/movieCard";
 import { MovieDetails } from "./movieDetails/movieDetails";
+import { ReviewCard } from "./reviewCard/reviewCard";
 import apiClient from "./services/api-client";
-import { Movie, Trailer } from "./types";
+import { Movie, Review, Trailer } from "./types";
 import { YoutubeTrailer } from "./youtubeTrailer/youtubeTrailer";
 
 class App {
@@ -106,12 +107,11 @@ class App {
       }, 500);
 
       apiClient.getMovieTrailers(movie.id).then((response) => {
-        console.log(response.results);
         this.addMovieTrailers(movieDetailsDialog, response.results);
       });
 
       apiClient.getMovieReviews(movie.id).then((response) => {
-        console.log(response.results);
+        this.addMovieReviews(movieDetailsDialog, response.results);
       });
 
       apiClient.getSimilarMovies(movie.id).then((response) => {
@@ -131,6 +131,22 @@ class App {
       trailers.filter((trailer) => trailer.site === "YouTube").slice(0, 4).forEach((trailer) => {
         const youtubeTrailer = new YoutubeTrailer(trailer);
         trailersContainer.appendChild(youtubeTrailer);
+      });
+    }
+  }
+  
+
+  addMovieReviews = (movieDetails: HTMLDialogElement, reviews: Review[]): void => {
+    const reviewsContainer =
+      movieDetails.querySelector<HTMLDivElement>(".reviews-container .reviews");
+    if (!reviewsContainer) return;
+
+    if (reviews.length === 0 && reviewsContainer.parentElement) {
+      reviewsContainer.parentElement.style.display = "none"; // Hide the reviews section
+    } else {
+      reviews.slice(0, 2).forEach((review) => {
+        const reviewCard = new ReviewCard(review);
+        reviewsContainer.appendChild(reviewCard);
       });
     }
   }

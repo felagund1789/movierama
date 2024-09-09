@@ -148,7 +148,8 @@
   line-height: 1.5;
 }
 
-.trailers-container {
+.trailers-container,
+.reviews-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -161,7 +162,7 @@
   border-radius: 10px;
 }
 
-.trailers {
+.trailers, .reviews {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
