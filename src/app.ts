@@ -113,9 +113,9 @@ class App {
       apiClient.getMovieReviews(movie.id).then((response) => {
         this.addMovieReviews(movieDetailsDialog, response.results);
       });
-
+      
       apiClient.getSimilarMovies(movie.id).then((response) => {
-        console.log(response.results);
+        this.addSimilarMovies(movieDetailsDialog, response.results);
       });
     }
   }
@@ -134,7 +134,6 @@ class App {
       });
     }
   }
-  
 
   addMovieReviews = (movieDetails: HTMLDialogElement, reviews: Review[]): void => {
     const reviewsContainer =
@@ -147,6 +146,24 @@ class App {
       reviews.slice(0, 2).forEach((review) => {
         const reviewCard = new ReviewCard(review);
         reviewsContainer.appendChild(reviewCard);
+      });
+    }
+  }
+
+  addSimilarMovies = (movieDetails: HTMLDialogElement, movies: Movie[]): void => {
+    const similarMoviesContainer =
+      movieDetails.querySelector<HTMLDivElement>(".similar-movies-container .movies");
+    if (!similarMoviesContainer) return;
+
+    if (movies.length === 0 && similarMoviesContainer.parentElement) {
+      similarMoviesContainer.parentElement.style.display = "none"; // Hide the similar movies section
+    } else {
+      movies.slice(0, 4).forEach((movie) => {
+        const similarMovieCard = new MovieCard(movie, (event) => {
+          event.preventDefault();
+          this.showMovieDetails(movie);
+        });
+        similarMoviesContainer.appendChild(similarMovieCard);
       });
     }
   }
