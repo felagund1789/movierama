@@ -7,8 +7,13 @@
   background-color: #1d1d1f;
   border-color: #1d1d1f;
   border-radius: 10px;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, .5);
   z-index: 100;
+  transition: display .5s allow-discrete, overlay .5s allow-discrete;
+  animation: close .5s forwards;
+  &[open] {
+    animation: open .5s forwards;
+  }
 }
 /* @media (min-width: 60rem) {
   .movie-details-dialog {
@@ -67,7 +72,7 @@
   border-radius: 5px;
 }
 .details .details-content .movie-vote-average::before {
-  content: '⭐';
+  content: "⭐";
   margin-right: 0.25rem;
 }
 .details .details-content .movie-vote-average.green {
@@ -100,4 +105,25 @@
 .details .details-content .movie-overview {
   margin-top: .5rem;
   line-height: 1.5;
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    transform: scale(.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes close {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(.8);
+  }
 }

@@ -98,8 +98,10 @@ class App {
         movieDetailsDialog.close();
       });
       
-      // Disable scrolling on the body
-      document.body.style.overflow = "hidden";
+      // Disable scrolling on the body after .5s
+      setTimeout(() => {
+        document.body.style.overflow = "hidden";
+      }, 500);
     }
   }
 
