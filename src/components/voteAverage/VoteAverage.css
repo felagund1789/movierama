@@ -1,0 +1,18 @@
+.movie-vote-average {
+  box-sizing: border-box;
+  padding: 0.125rem 0.5rem;
+  border-radius: 5px;
+}
+.movie-vote-average::before {
+  content: '⭐';
+  margin-right: 0.25rem;
+}
+.movie-vote-average.green {
+  background-color: var(--green-color);
+}
+.movie-vote-average.orange {
+  background-color: var(--orange-color);
+}
+.movie-vote-average.red {
+  background-color: var(--red-color);
+}

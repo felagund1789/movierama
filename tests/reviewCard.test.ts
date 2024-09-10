@@ -4,10 +4,10 @@ import { describe, expect, it } from "vitest";
 import { ReviewCard } from "../src/reviewCard/reviewCard";
 import { Review } from "../src/types";
 
-customElements.define("youtube-trailer", ReviewCard);
+customElements.define("review-card", ReviewCard);
 
 describe("ReviewCard test", () => {
-  it("should render a movie card with correct content", () => {
+  it("should render a review card with correct content", () => {
     // Create a sample review object
     const review: Review = {
       author: "CinemaSerf",
