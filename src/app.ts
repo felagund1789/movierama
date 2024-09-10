@@ -6,6 +6,8 @@ import apiClient from "./services/api-client";
 import { Movie, Review, Trailer } from "./types";
 import { YoutubeTrailer } from "./youtubeTrailer/youtubeTrailer";
 
+customElements.define("youtube-trailer", YoutubeTrailer);
+
 class App {
 
   isFetching = false;

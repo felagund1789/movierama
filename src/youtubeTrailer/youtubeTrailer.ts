@@ -3,19 +3,19 @@ import "./youtubeTrailer.css";
 
 const youtubeBaseURL = import.meta.env.VITE_YOUTUBE_BASE_URL;
 
-export class YoutubeTrailer extends DocumentFragment {
+export class YoutubeTrailer extends HTMLElement {
+
+  trailer: Trailer;
+
   constructor(trailer: Trailer) {
     super();
-    const template = document.querySelector<HTMLTemplateElement>("#youtube-trailer");
-    if (!template) throw new Error("Youtube trailer template not found!");
+    this.trailer = trailer;
+  }
 
-    const youtubeTrailer = document.importNode(template.content, true);
-    const trailerFrame = youtubeTrailer.querySelector<HTMLIFrameElement>(".video");
-    if (trailerFrame) {
-      trailerFrame.src = `${youtubeBaseURL}${trailer.key}`;
-    }
-    youtubeTrailer.querySelector<HTMLHeadingElement>(".trailer-title")!.textContent = trailer.name;
-
-    return youtubeTrailer;
+  connectedCallback() {
+    this.innerHTML = `<div class="trailer">
+      <iframe class="video" src="${youtubeBaseURL}${this.trailer.key}"></iframe>
+      <h3 class="trailer-title">${this.trailer.name}</h3>
+    </div>`;
   }
 }
