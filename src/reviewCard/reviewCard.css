@@ -26,7 +26,11 @@
   height: 8rem;
   object-fit: cover;
 }
-.review h3 {
+.author h3, .author h4 {
   text-wrap: wrap;
-  width: 25rem;
+  width: 8rem;
+}
+.review .review-content {
+  text-align: justify;
+  text-wrap: wrap;
 }
