@@ -1,3 +1,4 @@
+import { GenreTag } from "../components/genreTag/genreTag";
 import { getGenreName } from "../services/genres";
 import { Movie } from "../types";
 import "./movieCard.css";
@@ -83,11 +84,7 @@ function setMovieGenres(
   if (movieGenre) {
     genre_ids
       .map((genreId) => getGenreName(genreId))
-      .forEach(
-        (genre) =>
-          (movieGenre.appendChild(document.createElement("div")).textContent =
-            genre)
-      );
+      .forEach((genre) => movieGenre.appendChild(new GenreTag(genre)));
   }
 }
 

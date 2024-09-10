@@ -4,6 +4,9 @@ import { describe, expect, it, vitest } from "vitest";
 import { MovieCard } from "../src/movieCard/movieCard";
 import { Movie } from "../src/types";
 import movies from "../src/assets/data/movies.json";
+import { GenreTag } from "../src/components/genreTag/genreTag";
+
+customElements.define("genre-tag", GenreTag);
 
 // add a card template to the document
 const template = document.createElement("template");
