@@ -3,6 +3,7 @@
 import { describe, expect, it, vitest } from "vitest";
 import { MovieCard } from "../src/movieCard/movieCard";
 import { Movie } from "../src/types";
+import movies from "../src/assets/data/movies.json";
 
 // add a card template to the document
 const template = document.createElement("template");
@@ -28,23 +29,7 @@ document.body.appendChild(template);
 describe("MovieCard test", () => {
   it("should render a movie card with correct content", () => {
     // Create a sample movie object
-    const movie: Movie = {
-      adult: false,
-      backdrop_path: "/zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg",
-      genre_ids: [18, 80],
-      id: 278,
-      original_language: "en",
-      original_title: "The Shawshank Redemption",
-      overview:
-        "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope.",
-      popularity: 173.195,
-      poster_path: "/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
-      release_date: "1994-09-23",
-      title: "The Shawshank Redemption",
-      video: false,
-      vote_average: 8.706,
-      vote_count: 26764,
-    };
+    const movie: Movie = movies[0];
 
     // Create a new instance of MovieCard
     const movieCard = new MovieCard(movie, vitest.fn());

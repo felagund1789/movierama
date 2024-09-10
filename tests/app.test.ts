@@ -4,27 +4,37 @@ import { describe, expect, it } from "vitest";
 import app from "../src/app";
 import movies from "../src/assets/data/movies.json";
 
-// add a card template to the document
-const template = document.createElement("template");
-template.id = "movie-card";
-template.innerHTML = `
-    <div class="card">
-      <a href="">
-        <img src="" alt="" class="movie-poster" />
-      </a>
-      <div class="card-content">
-        <a href="" class="movie-title"></a>
-        <div class="year-and-score">
-          <h3 class="movie-year"></h3>
-          <h3 class="movie-vote-average"></h3>
-        </div>
-        <div class="movie-genres"></div>
-        <div class="movie-overview"></div>
-      </div>
-    </div>
-  `;
-document.body.appendChild(template);
+function setupDocument() {
+  // reset document body
+  document.body.innerHTML = "";
 
+  // add a card template to the document
+  const template = document.createElement("template");
+  template.id = "movie-card";
+  template.innerHTML = `
+      <div class="card">
+        <a href="">
+          <img src="" alt="" class="movie-poster" />
+        </a>
+        <div class="card-content">
+          <a href="" class="movie-title"></a>
+          <div class="year-and-score">
+            <h3 class="movie-year"></h3>
+            <h3 class="movie-vote-average"></h3>
+          </div>
+          <div class="movie-genres"></div>
+          <div class="movie-overview"></div>
+        </div>
+      </div>
+    `;
+  document.body.appendChild(template);
+  
+  return {
+    resultsContainer: createElement("div", "results", "results"),
+    pageTitle: createElement("h2", "page-title", "page-title"),
+    searchInput: createElement("input", "search-input", "search"),
+  }
+}
 function createElement(
   tag: string,
   id: string,
@@ -39,14 +49,11 @@ function createElement(
 
 describe("App tests", () => {
   it("should render a card for each movie", () => {
-    const resultsContainer = createElement("div", "results", "results");
+    // Get reference to a results container
+    const { resultsContainer } = setupDocument();
 
-    try {
-      // Append movies to the results container
-      app.appendMovies(movies);
-    } catch (error) {
-      console.error(error);
-    }
+    // Append movies to the results container
+    app.appendMovies(movies);
 
     // Check if the movie cards were appended
     const movieCards = resultsContainer.querySelectorAll(".card");
@@ -69,8 +76,11 @@ describe("App tests", () => {
   });
 
   it("should update the page title with the given string", () => {
-    // Create a page title element
-    const pageTitle = createElement("h2", "page-title", "page-title");
+    // Get a reference to a page title element
+    const { pageTitle } = setupDocument();
+
+    // check that the page title is NOT "Search results"
+    expect(pageTitle.innerText).not.toBe("Search results");
 
     // Call the updateResultsPageTitle method
     app.updateResultsPageTitle("Search results");
@@ -80,11 +90,14 @@ describe("App tests", () => {
   });
 
   it("should clear the results container", () => {
-    // Create a results container
-    const resultsContainer = createElement("div", "results", "results");
+    // Get reference to a results container
+    const { resultsContainer } = setupDocument();
 
-    // Append a child element to the results container
-    resultsContainer.appendChild(document.createElement("div"));
+    // Append a movie card to the results container
+    app.appendMovies(movies.slice(0, 1));
+
+    // Check that the results container is NOT empty
+    expect(resultsContainer.textContent).not.toBe("");
 
     // Call the clearResults method
     app.clearResults();
