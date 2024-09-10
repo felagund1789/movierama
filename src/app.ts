@@ -1,4 +1,5 @@
 import "./app.css";
+import { GenreTag } from "./components/genreTag/genreTag";
 import { VoteAverage } from "./components/voteAverage/VoteAverage";
 import { MovieCard } from "./movieCard/movieCard";
 import { MovieDetails } from "./movieDetails/movieDetails";
@@ -10,6 +11,7 @@ import { YoutubeTrailer } from "./youtubeTrailer/youtubeTrailer";
 customElements.define("youtube-trailer", YoutubeTrailer);
 customElements.define("review-card", ReviewCard);
 customElements.define("vote-average", VoteAverage);
+customElements.define("genre-tag", GenreTag);
 
 class App {
 
