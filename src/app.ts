@@ -42,12 +42,21 @@ class App {
       // Do not run if currently fetching
       if (this.isFetching) return;
 
-      // Scrolled to bottom
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      const windowHeight = window.innerHeight; // Viewport height
+      const documentHeight = document.documentElement.scrollHeight; // Document height
+      const scrollTop = 
+        window.scrollY || 
+        document.documentElement.scrollTop || 
+        document.body.scrollTop; // Scroll position
+
+      if (scrollTop + windowHeight >= documentHeight - 100) {
+        this.isFetching = true;
+        this.currentPage++;
+
         const searchValue = searchInput?.value.trim() || "";
         searchValue === ""
-          ? this.fetchNowPlaying(++this.currentPage)
-          : this.fetchSearchResults(searchValue, ++this.currentPage);
+          ? this.fetchNowPlaying(this.currentPage)
+          : this.fetchSearchResults(searchValue, this.currentPage);
       }
     });
   }
