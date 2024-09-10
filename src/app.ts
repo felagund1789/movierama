@@ -89,18 +89,21 @@ class App {
       movieDetailsDialog.innerHTML = "";
       movieDetailsDialog.appendChild(movieDetails);
       movieDetailsDialog.showModal();
-      
-      
+
       movieDetailsDialog.addEventListener("close", () => {
         // Enable scrolling on the body
         document.body.style.overflow = "auto";
       });
 
       movieDetailsDialog.querySelector<HTMLButtonElement>(".close-button")?.addEventListener("click", () => {
-        console.log("Close dialog");
         movieDetailsDialog.close();
       });
-      
+      movieDetailsDialog.addEventListener("click", (event) => {
+        if (event.target === movieDetailsDialog) {
+          movieDetailsDialog.close();
+        }
+      });
+
       // Disable scrolling on the body after .5s
       setTimeout(() => {
         document.body.style.overflow = "hidden";
