@@ -8,6 +8,11 @@
   border-radius: 5rem;
   gap: 1rem;
 }
+@media(max-width: 48rem) {
+  .review-card {
+    flex-direction: column;
+  }
+}
 .author {
   min-width: 8rem;
   display: flex;

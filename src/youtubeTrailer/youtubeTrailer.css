@@ -1,11 +1,15 @@
+.trailer {
+  width: min(25rem, calc(100vw - 6rem));
+}
+
 .trailer iframe.video {
   border: none;
   outline: none;
-  width: 25rem;
-  height: 14rem;
+  width: min(25rem, calc(100vw - 6rem));
+  height: calc(min(25rem, calc(100vw - 6rem)) * 9 / 16);
 }
 
 .trailer h3 {
   text-wrap: wrap;
-  width: 25rem;
+  width: min(25rem, calc(100vw - 6rem));
 }
