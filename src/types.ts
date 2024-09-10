@@ -27,7 +27,7 @@ export interface Trailer {
   size: number;
   type: string;
   official: boolean;
-  published_at: Date;
+  published_at: string;
   id: string;
 }
 
@@ -42,6 +42,6 @@ export interface Review {
   content: string;
   created_at: string;
   id: string;
-  updated_at: Date;
+  updated_at: string;
   url: string;
 }
