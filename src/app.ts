@@ -8,10 +8,11 @@ import { YoutubeTrailer } from "./youtubeTrailer/youtubeTrailer";
 
 class App {
 
-  isFetching = true;
+  isFetching = false;
   currentPage = 1;
 
   constructor() {
+    this.clearErrorMessage();
     this.setupListeners();
     this.fetchNowPlaying(this.currentPage);
   }
@@ -59,6 +60,21 @@ class App {
           : this.fetchSearchResults(searchValue, this.currentPage);
       }
     });
+  }
+
+  showErrorMessage = (message: string): void => {
+    const errorMessage = document.querySelector<HTMLDivElement>("#error-message");
+    if (errorMessage) {
+      errorMessage.innerText = message;
+      errorMessage.style.display = "block";
+    }
+  }
+
+  clearErrorMessage = (): void => {
+    const errorMessage = document.querySelector<HTMLDivElement>("#error-message");
+    if (errorMessage) {
+      errorMessage.style.display = "none";
+    }
   }
 
   updateResultsPageTitle = (title: string): void => {
@@ -181,17 +197,31 @@ class App {
   }
   
   fetchSearchResults = async (query: string, page: number) => {
-    const response = await apiClient.searchMovies({ query, page });
-    if (page === 1) this.clearResults();
-    this.appendMovies(response.results);
-    this.isFetching = false;
+    this.clearErrorMessage();
+    try {
+      const response = await apiClient.searchMovies({ query, page });
+      if (page === 1) this.clearResults();
+      this.appendMovies(response.results);
+    } catch (error) {
+      this.currentPage--;
+      this.showErrorMessage("Error fetching search results");
+    } finally {
+      this.isFetching = false;
+    }
   }
 
   fetchNowPlaying = async (page: number) => {
-    const response = await apiClient.getNowPlaying({ page });
-    if (page === 1) this.clearResults();
-    this.appendMovies(response.results);
-    this.isFetching = false;
+    this.clearErrorMessage();
+    try {
+      const response = await apiClient.getNowPlaying({ page });
+      if (page === 1) this.clearResults();
+      this.appendMovies(response.results);
+    } catch (error) {
+      this.currentPage--;
+      this.showErrorMessage("Error fetching now playing");
+    } finally {
+      this.isFetching = false;
+    }
   }
 }
 

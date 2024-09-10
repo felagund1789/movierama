@@ -7,6 +7,7 @@
   --green-color: rgba(76, 175, 80, .85);
   --orange-color: rgba(255, 152, 0, .85);
   --red-color: rgba(244, 67, 54, .85);
+  --white-color: rgba(255, 255, 255, 0.87);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -159,6 +160,22 @@
   .content h2.page-title {
     font-size: 1.5rem;
     top: 0rem;
+  }
+}
+
+.content h3.error-message {
+  box-sizing: border-box;
+  background-color: var(--red-color);
+  color: var(--white-color);
+  width: 100%;
+  z-index: 250;
+  text-align: center;
+  position: sticky;
+  top: 6rem;
+}
+@media (max-width: 60rem) {
+  .content h3.error-message {
+    top: 4rem;
   }
 }
 
