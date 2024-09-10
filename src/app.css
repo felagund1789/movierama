@@ -17,6 +17,9 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  ::-webkit-scrollbar {
+    width: 0;
+  }
 }
 @media(prefers-color-scheme: light) {
   :root {
