@@ -23,6 +23,7 @@ class App {
     searchInput?.addEventListener(
       "input",
       (event) => {
+        this.scrollToTheTop();
         const query = (event.target as HTMLInputElement).value.trim();
         if (query.length > 0) {
           this.isFetching = true;
@@ -60,6 +61,17 @@ class App {
           : this.fetchSearchResults(searchValue, this.currentPage);
       }
     });
+  }
+
+  scrollToTheTop = () => {
+    const header = document.querySelector<HTMLHeadingElement>(".header");
+    const pageTitle = document.querySelector<HTMLHeadingElement>("#page-title");
+    const results = document.querySelector<HTMLDivElement>("div.results");
+    
+    // Scroll to the top of the page
+    results?.scrollIntoView({ behavior: "instant" });
+    const height = (header?.offsetHeight || 0) + (pageTitle?.offsetHeight || 0);
+    window.scrollBy(0, -height || 200);
   }
 
   showErrorMessage = (message: string): void => {
