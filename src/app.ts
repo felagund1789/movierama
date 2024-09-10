@@ -7,6 +7,7 @@ import { Movie, Review, Trailer } from "./types";
 import { YoutubeTrailer } from "./youtubeTrailer/youtubeTrailer";
 
 customElements.define("youtube-trailer", YoutubeTrailer);
+customElements.define("review-card", ReviewCard);
 
 class App {
 
