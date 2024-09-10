@@ -7,7 +7,7 @@ import { YoutubeTrailer } from "../src/youtubeTrailer/youtubeTrailer";
 customElements.define("youtube-trailer", YoutubeTrailer);
 
 describe("YoutubeTrailer test", () => {
-  it("should render a movie card with correct content", () => {
+  it("should render a YouTube trailer custom element with correct content", () => {
     // Create a sample trailer object
     const trailer: Trailer = {
       id: "665f511e176dc873953843e5",
