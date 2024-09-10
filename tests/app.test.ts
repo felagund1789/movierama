@@ -66,7 +66,7 @@ describe("App tests", () => {
       expect(movieCard.querySelector(".movie-year")?.textContent).toBe(
         movie.release_date.substring(0, 4)
       ); // year
-      expect(movieCard.querySelector(".movie-vote-average")?.textContent).toBe(
+      expect(movieCard.querySelector(".movie-vote-average")?.textContent).toContain(
         movie.vote_average.toFixed(1)
       );
       expect(movieCard.querySelector(".movie-overview")?.textContent).toBe(

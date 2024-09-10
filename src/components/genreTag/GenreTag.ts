@@ -10,8 +10,6 @@ export class GenreTag extends HTMLElement {
   }
 
   connectedCallback() {
-    this.innerHTML = `<div class="genre">
-      ${this.genreName}
-    </div>`;
+    this.innerHTML = this.genreName;
   }
 }

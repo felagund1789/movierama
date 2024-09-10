@@ -34,25 +34,6 @@
   align-items: center;
 }
 
-.card .card-content .movie-vote-average {
-  box-sizing: border-box;
-  padding: 0.125rem 0.5rem;
-  border-radius: 5px;
-}
-.card .card-content .movie-vote-average::before {
-  content: '⭐';
-  margin-right: 0.25rem;
-}
-.card .card-content .movie-vote-average.green {
-  background-color: var(--green-color);
-}
-.card .card-content .movie-vote-average.orange {
-  background-color: var(--orange-color);
-}
-.card .card-content .movie-vote-average.red {
-  background-color: var(--red-color);
-}
-
 .card .card-content .movie-genres {
   margin-top: .5rem;
   display: flex;
@@ -68,7 +49,6 @@
   font-size: .75rem;
   font-weight: 500;
 }
-
 
 .card .card-content .movie-overview {
   margin-top: .5rem;
