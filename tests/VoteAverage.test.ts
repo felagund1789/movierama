@@ -14,7 +14,7 @@ describe("VoteAverage test", () => {
 
     // Assert that the element has been created
     expect(voteaverageTag).toBeDefined();
-    expect(voteaverageTag.querySelector(".movie-vote-average")?.textContent?.trim()).toBe("5");
+    expect(voteaverageTag.querySelector(".movie-vote-average")?.textContent?.trim()).toBe(Number(5).toFixed(1));
     expect(voteaverageTag.querySelector(".movie-vote-average")?.classList).toContain("red");
   });
 
@@ -26,7 +26,7 @@ describe("VoteAverage test", () => {
 
     // Assert that the element has been created
     expect(voteaverageTag).toBeDefined();
-    expect(voteaverageTag.querySelector(".movie-vote-average")?.textContent?.trim()).toBe("7");
+    expect(voteaverageTag.querySelector(".movie-vote-average")?.textContent?.trim()).toBe(Number(7).toFixed(1));
     expect(voteaverageTag.querySelector(".movie-vote-average")?.classList).toContain("orange");
   });
 
@@ -38,7 +38,7 @@ describe("VoteAverage test", () => {
 
     // Assert that the element has been created
     expect(voteaverageTag).toBeDefined();
-    expect(voteaverageTag.querySelector(".movie-vote-average")?.textContent?.trim()).toBe("8.5");
+    expect(voteaverageTag.querySelector(".movie-vote-average")?.textContent?.trim()).toBe(Number(8.5).toFixed(1));
     expect(voteaverageTag.querySelector(".movie-vote-average")?.classList).toContain("green");
   });
 });
