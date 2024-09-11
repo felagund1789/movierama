@@ -3,9 +3,9 @@
 import { describe, expect, it } from "vitest";
 import movies from "../src/assets/data/movies.json";
 import { GenreTag } from "../src/components/genreTag/GenreTag";
-import { MovieCard } from "../src/movieCard/movieCard";
-import { Movie } from "../src/types";
+import { MovieCard } from "../src/components/movieCard/movieCard";
 import { VoteAverage } from "../src/components/voteAverage/VoteAverage";
+import { Movie } from "../src/types";
 
 customElements.define("genre-tag", GenreTag);
 customElements.define("vote-average", VoteAverage);
