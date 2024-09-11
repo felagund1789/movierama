@@ -84,7 +84,11 @@ function setMovieGenres(
   if (movieGenre) {
     genre_ids
       .map((genreId) => getGenreName(genreId))
-      .forEach((genre) => movieGenre.appendChild(new GenreTag(genre)));
+      .forEach((genre) => {
+        const genreTag = new GenreTag();
+        genreTag.innerText = genre;
+        movieGenre.appendChild(genreTag);
+      });
   }
 }
 
