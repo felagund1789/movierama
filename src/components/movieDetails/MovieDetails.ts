@@ -1,5 +1,5 @@
-import { getGenreName } from "../services/genres";
-import "./movieDetails.css";
+import { getGenreName } from "../../services/genres";
+import "./MovieDetails.css";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 const imageFullBaseURL = import.meta.env.VITE_TMDB_IMAGE_FULL_BASE_URL;
