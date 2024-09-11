@@ -21,7 +21,9 @@ describe("YoutubeTrailer test", () => {
     };
 
     // Create a new instance of YoutubeTrailer
-    const youtubeTrailer = new YoutubeTrailer(trailer);
+    const youtubeTrailer = new YoutubeTrailer();
+    youtubeTrailer.trailerKey = trailer.key;
+    youtubeTrailer.trailerName = trailer.name;
     document.body.appendChild(youtubeTrailer);
 
     // Assert that the element has been created
