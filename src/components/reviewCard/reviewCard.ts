@@ -90,7 +90,11 @@ export class ReviewCard extends HTMLElement {
             class="author-avatar" />`) ||
           ""
         }
-        <h3 class="author-name">${this.getAttribute("author-name")}</h3>
+        ${
+          this.getAttribute("author-name")
+            ? `<h3 class="author-name">${this.getAttribute("author-name")}</h3>`
+            : ""
+        }
         <h4 class="author-username">@${this.getAttribute(
           "author-username"
         )}</h4>
@@ -105,8 +109,8 @@ export class ReviewCard extends HTMLElement {
         </div>
         <div class="review-content">
           <a href="${this.getAttribute("review-url")}" target="_blank">${
-            this.getAttribute("author-name") || this.getAttribute("author-username")
-          }'s review</a>
+      this.getAttribute("author-name") || this.getAttribute("author-username")
+    }'s review</a>
           <p>${this.getAttribute("content")}</p>
         </div>
       </div>
