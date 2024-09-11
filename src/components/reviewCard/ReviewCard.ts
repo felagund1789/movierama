@@ -1,4 +1,4 @@
-import "./reviewCard.css";
+import "./ReviewCard.css";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 

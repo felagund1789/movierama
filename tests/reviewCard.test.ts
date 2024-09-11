@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import { describe, expect, it } from "vitest";
-import { ReviewCard } from "../src/components/reviewCard/reviewCard";
+import { ReviewCard } from "../src/components/reviewCard/ReviewCard";
 import { Review } from "../src/types";
 
 customElements.define("review-card", ReviewCard);

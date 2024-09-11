@@ -1,9 +1,9 @@
 import "./app.css";
 import { GenreTag } from "./components/genreTag/GenreTag";
-import { MovieCard } from "./components/movieCard/movieCard";
-import { ReviewCard } from "./components/reviewCard/reviewCard";
+import { MovieCard } from "./components/movieCard/MovieCard";
+import { ReviewCard } from "./components/reviewCard/ReviewCard";
 import { VoteAverage } from "./components/voteAverage/VoteAverage";
-import { YoutubeTrailer } from "./components/youtubeTrailer/youtubeTrailer";
+import { YoutubeTrailer } from "./components/youtubeTrailer/YoutubeTrailer";
 import { MovieDetails } from "./components/movieDetails/MovieDetails";
 import apiClient from "./services/api-client";
 import { Movie, Review, Trailer } from "./types";
