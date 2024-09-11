@@ -28,17 +28,9 @@ describe("MovieCard test", () => {
 
     // Assert that the movie card has been created
     expect(movieCard).toBeDefined();
-    expect(movieCard.querySelector(".movie-title")?.textContent).toBe(
-      movie.title
-    );
-    expect(movieCard.querySelector(".movie-year")?.textContent).toBe(
-      movie.release_date.substring(0, 4)
-    ); // year
-    expect(movieCard.querySelector(".movie-vote-average")?.textContent?.trim()).toBe(
-      movie.vote_average.toFixed(1)
-    );
-    expect(movieCard.querySelector(".movie-overview")?.textContent).toBe(
-      movie.overview
-    );
+    expect(movieCard.querySelector(".movie-title")?.textContent).toBe(movie.title);
+    expect(movieCard.querySelector(".movie-year")?.textContent).toBe(movie.release_date.substring(0, 4)); // year
+    expect(movieCard.querySelector(".movie-vote-average")?.textContent?.trim()).toBe(movie.vote_average.toFixed(1));
+    expect(movieCard.querySelector(".movie-overview")?.textContent).toBe(movie.overview);
   });
 });
