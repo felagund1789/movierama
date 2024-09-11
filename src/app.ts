@@ -13,6 +13,7 @@ customElements.define("review-card", ReviewCard);
 customElements.define("vote-average", VoteAverage);
 customElements.define("genre-tag", GenreTag);
 customElements.define("movie-card", MovieCard);
+customElements.define("movie-details", MovieDetails);
 
 class App {
 
@@ -135,7 +136,26 @@ class App {
   }
   
   showMovieDetails = (movie: Movie) => {
-    const movieDetails = new MovieDetails(movie);
+    const movieDetails = new MovieDetails();
+    movieDetails.backdropPath = movie.backdrop_path;
+    movieDetails.posterPath = movie.poster_path;
+    movieDetails.title = movie.title;
+    movieDetails.releaseDate = movie.release_date;
+    movieDetails.voteAverage = movie.vote_average.toString();
+    movieDetails.genreIds = movie.genre_ids.join(",");
+    movieDetails.overview = movie.overview;
+    apiClient.getMovieTrailers(movie.id).then((response) => {
+      this.addMovieTrailers(movieDetails, response.results);
+    });
+
+    apiClient.getMovieReviews(movie.id).then((response) => {
+      this.addMovieReviews(movieDetails, response.results);
+    });
+    
+    apiClient.getSimilarMovies(movie.id).then((response) => {
+      this.addSimilarMovies(movieDetails, response.results);
+    });
+
     const movieDetailsDialog = document.querySelector<HTMLDialogElement>("#movie-details-dialog");
     if (movieDetailsDialog) {
       movieDetailsDialog.innerHTML = "";
@@ -160,22 +180,10 @@ class App {
       setTimeout(() => {
         document.body.style.overflow = "hidden";
       }, 500);
-
-      apiClient.getMovieTrailers(movie.id).then((response) => {
-        this.addMovieTrailers(movieDetailsDialog, response.results);
-      });
-
-      apiClient.getMovieReviews(movie.id).then((response) => {
-        this.addMovieReviews(movieDetailsDialog, response.results);
-      });
-      
-      apiClient.getSimilarMovies(movie.id).then((response) => {
-        this.addSimilarMovies(movieDetailsDialog, response.results);
-      });
     }
   }
 
-  addMovieTrailers = (movieDetails: HTMLDialogElement, trailers: Trailer[]): void => {
+  addMovieTrailers = (movieDetails: MovieDetails, trailers: Trailer[]): void => {
     const trailersContainer =
       movieDetails.querySelector<HTMLDivElement>(".trailers-container .trailers");
     if (!trailersContainer) return;
@@ -192,7 +200,7 @@ class App {
     }
   }
 
-  addMovieReviews = (movieDetails: HTMLDialogElement, reviews: Review[]): void => {
+  addMovieReviews = (movieDetails: MovieDetails, reviews: Review[]): void => {
     const reviewsContainer =
       movieDetails.querySelector<HTMLDivElement>(".reviews-container .reviews");
     if (!reviewsContainer) return;
@@ -213,7 +221,7 @@ class App {
     }
   }
 
-  addSimilarMovies = (movieDetails: HTMLDialogElement, movies: Movie[]): void => {
+  addSimilarMovies = (movieDetails: MovieDetails, movies: Movie[]): void => {
     const similarMoviesContainer =
       movieDetails.querySelector<HTMLDivElement>(".similar-movies-container .movies");
     if (!similarMoviesContainer) return;

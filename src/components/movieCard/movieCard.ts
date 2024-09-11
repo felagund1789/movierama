@@ -95,10 +95,7 @@ export class MovieCard extends HTMLElement {
       <div class="card-content">
         <a href="" class="movie-title">${this.getAttribute("title")}</a>
         <div class="year-and-score">
-          <h3 class="movie-year">${this.getAttribute("release-date")?.substring(
-            0,
-            4
-          )}</h3>
+          <h3 class="movie-year">${this.getAttribute("release-date")?.substring(0, 4)}</h3>
           <vote-average average="${this.getAttribute("vote-average")}" />
         </div>
         <div class="movie-genres">${
