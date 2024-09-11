@@ -4,7 +4,7 @@ import { MovieCard } from "./components/movieCard/movieCard";
 import { ReviewCard } from "./components/reviewCard/reviewCard";
 import { VoteAverage } from "./components/voteAverage/VoteAverage";
 import { YoutubeTrailer } from "./components/youtubeTrailer/youtubeTrailer";
-import { MovieDetails } from "./movieDetails/movieDetails";
+import { MovieDetails } from "./components/movieDetails/MovieDetails";
 import apiClient from "./services/api-client";
 import { Movie, Review, Trailer } from "./types";
 
