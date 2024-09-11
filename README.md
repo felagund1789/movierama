@@ -11,14 +11,15 @@
 
 - [Overview](#overview)
 - [Features](#🚀-features)
+- [Screenshots](#screenshots)
 - [Responsive Design](#📱-responsive-design)
 - [Accessibility](#🦯-accessibility)
 - [Technical Decisions](#🛠️-technical-decisions)
   - [Use of TypeScript instead of JavaScript](#1-use-of-TypeScript-instead-of-javascript)
   - [Use Vite/Vitest as bundling tool/testing framework](#2-use-vitevitest-as-bundling-tooltesting-framework)
-  - [Use of HTML &lt;template&gt; elements](#3-use-of-html-template-elements)
+  - [Use of the Web Components standard for creating reusable custom elements](#3-use-of-the-web-components-standard-for-creating-reusable-custom-elements)
 - [Challenges](#🏋️-challenges)
-  - [Testing the components](#1-testing-the-components)
+  - [Testing the components (before implementing custom elements)](#1-testing-the-components-before-implementing-custom-elements)
 - [Future Improvements](#🌈-future-improvements)
 - [Installation](#📩-installation)
 - [Contributing](#contributing)
@@ -37,6 +38,18 @@ Movierama is yet another movie catalog where users can check the movies of the w
 - **User Reviews**: Read user reviews for any movie.
 - **Similar Movies**: Each movie has its own suggested list of similar movies.
 - **Infinite Scrolling**: Just scroll down and the movies keep coming.
+
+## Screenshots
+
+![Now playing](screens/landscape-now-playing.png)
+
+![Movie details](screens/landscape-movie-details.png)
+
+![Movie trailers, reviews and similar movies](screens/landscape-movie-reviews.png)
+
+![Narrow view](screens/narrow-movie-details.png) ![Mobile movie details](screens/portrait-movie-details.png)
+
+![Mobile movie trailers](screens/portrait-movie-trailers.png) ![Mobile movie reviews](screens/portrait-movie-reviews.png)
 
 ## 📱 Responsive Design
 
@@ -58,25 +71,33 @@ Vite and Vitest were chosen as part of the development stack to complement the u
 
 Vitest, designed to work smoothly with Vite, was selected as the testing framework for its compatibility with TypeScript and ability to handle module-based architectures. It offers quick test execution with native support for TypeScript, which allows for consistent type-checking across both the application code and the test suite. This ensures that errors are caught early, and the tests remain tightly integrated with the development process, especially when dealing with a project structured into separate, self-contained modules. Together, Vite and Vitest provide a streamlined, efficient, and highly performant ecosystem for developing and testing TypeScript-based modular projects.
 
-### 3. Use of HTML &lt;template&gt; elements
+### 3. Use of the [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) standard for creating reusable custom elements
 
-HTML &lt;template&gt; elements were used to define the structure of various components, allowing for a clean separation of concerns between the layout and the logic. Although all templates reside within the index page's document, the logic governing each component is maintained in individual TypeScript (TS) files. This approach centralizes the component's structure in one place for easy maintenance while ensuring the component logic is modular and isolated. By storing the logic separately in TS files, each component remains manageable, reusable, and testable, promoting a clear, organized development flow.
+HTML [&lt;template&gt; elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots) were initially used to define the structure of various components inside the main `index.html` file, while the logic governing each component was maintained in individual TypeScript (TS) files. This approach centralizes the component's structure in one place for reusability while ensuring the component logic is modular and isolated. 
 
-An alternative approach could have been to embed the HTML code for each component directly within its respective TypeScript file. This method would enable a more self-contained component structure, where both the logic and the layout are bundled together in a single file. By keeping the HTML within the TypeScript, it enhances component encapsulation, making each component easier to move, reuse, or refactor. This approach also aligns well with modern component-based frameworks, where templates and logic are often co-located, improving code organization and reducing context switching during development. (See also [Future Improvements](#future-improvements))
+An alternative approach was to embed the HTML code for each component directly within its respective TypeScript file. This method would enable a more self-contained component structure, where both the logic and the layout are bundled together in a single file. By keeping the HTML within the TypeScript, it enhances component encapsulation, making each component easier to move, reuse, or refactor. This approach also aligns well with modern component-based frameworks, where templates and logic are often co-located, improving code organization and reducing context switching during development.
+
+In a complete rewrite of the components, the HTML &lt;template&gt; elements were removed and [custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements) were used to enhance modularity and reusability. By leveraging the CustomElementsRegistry, each component is now defined as a self-contained custom element, encapsulating its structure. This transition to custom elements allows for better separation of concerns, more maintainable code, and reusable components that can be easily tested and integrated across different parts of the app. Additionally, this approach aligns with modern web standards, ensuring future compatibility and better performance, as well as offering built-in support for features like shadow DOM, which helps isolate styles and scripts within each component.
+
+![Using custom elements](screens/custom-elements.png)
 
 ## 🏋️ Challenges
 
-### 1. Testing the components
+### 1. Testing the components (before implementing custom elements)
 
-The use of HTML &lt;template&gt; elements made writing tests for the various components more difficult as the creation of specific containers and elements was needed prior to running the app logic.
+The use of HTML &lt;template&gt; elements made writing tests for the various components more difficult as the creation of specific containers and elements was needed prior to running the app logic. 
 
 For example calling `app.appendMovies(...)` requires a container with the class `.results` to exist where the MovieCard components can be appended as children, while the creation of the MovieCard component itself requires the existence of a &lt;template&gt; element with the id `#movie-card`. 
 
+Fortunately, rewriting the components as custom elements improved the testability, if not of the entire application at least of each individual component. 
+
 ## 🌈 Future Improvements
 
-1. Add more features, like filtering the results by genre, or by year. More trailers and similar movies (now limited at 4) could be shown if a carousel was employed. 
+1. **Filtering the results by genre** (new feature): A list of all the genres can help the users filter their search results (or the movies that are now "In Theaters") by genre. Clicking on a genre tag can reset the search input while also applying the filter, thus showing all movies of the selecred genre.
 
-2. Replace HTML &lt;template&gt; elements in the main document with HTML code snippets inside each component file. These code snippets can be used in the same way the templates are used now, but they will make for components that are self-contained and more easily tested.
+2. **Add carousels** (new feature): More trailers and similar movies (now limited at 4) could be shown if a carousel was employed. The users could navigate using arrows on the left and right of the screen, or by swiping on mobile devices. 
+
+3. **Clear the search input** (new feature): Add an X button inside the search input that when clicked will clear any search terms and reset the search results. 
 
 ## 📩 Installation
 
