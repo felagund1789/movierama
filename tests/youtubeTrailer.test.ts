@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 
 import { describe, expect, it } from "vitest";
+import { YoutubeTrailer } from "../src/components/youtubeTrailer/youtubeTrailer";
 import { Trailer } from "../src/types";
-import { YoutubeTrailer } from "../src/youtubeTrailer/youtubeTrailer";
 
 customElements.define("youtube-trailer", YoutubeTrailer);
 

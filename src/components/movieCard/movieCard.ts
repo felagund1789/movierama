@@ -1,4 +1,4 @@
-import { getGenreName } from "../services/genres";
+import { getGenreName } from "../../services/genres";
 import "./movieCard.css";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;

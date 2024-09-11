@@ -1,12 +1,12 @@
 import "./app.css";
 import { GenreTag } from "./components/genreTag/GenreTag";
+import { MovieCard } from "./components/movieCard/movieCard";
+import { ReviewCard } from "./components/reviewCard/reviewCard";
 import { VoteAverage } from "./components/voteAverage/VoteAverage";
-import { MovieCard } from "./movieCard/movieCard";
+import { YoutubeTrailer } from "./components/youtubeTrailer/youtubeTrailer";
 import { MovieDetails } from "./movieDetails/movieDetails";
-import { ReviewCard } from "./reviewCard/reviewCard";
 import apiClient from "./services/api-client";
 import { Movie, Review, Trailer } from "./types";
-import { YoutubeTrailer } from "./youtubeTrailer/youtubeTrailer";
 
 customElements.define("youtube-trailer", YoutubeTrailer);
 customElements.define("review-card", ReviewCard);
