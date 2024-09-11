@@ -1,4 +1,4 @@
-import "./youtubeTrailer.css";
+import "./YoutubeTrailer.css";
 
 const youtubeBaseURL = import.meta.env.VITE_YOUTUBE_BASE_URL;
 
