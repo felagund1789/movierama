@@ -10,18 +10,18 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features](#🚀-features)
+- [Features](#features)
 - [Screenshots](#screenshots)
-- [Responsive Design](#📱-responsive-design)
-- [Accessibility](#🦯-accessibility)
-- [Technical Decisions](#🛠️-technical-decisions)
-  - [Use of TypeScript instead of JavaScript](#1-use-of-TypeScript-instead-of-javascript)
+- [Responsive Design](#responsive-design)
+- [Accessibility](#accessibility)
+- [Technical Decisions](#technical-decisions)
+  - [Use of TypeScript instead of JavaScript](#1-use-of-typescript-instead-of-javascript)
   - [Use Vite/Vitest as bundling tool/testing framework](#2-use-vitevitest-as-bundling-tooltesting-framework)
   - [Use of the Web Components standard for creating reusable custom elements](#3-use-of-the-web-components-standard-for-creating-reusable-custom-elements)
-- [Challenges](#🏋️-challenges)
+- [Challenges](#challenges)
   - [Testing the components (before implementing custom elements)](#1-testing-the-components-before-implementing-custom-elements)
-- [Future Improvements](#🌈-future-improvements)
-- [Installation](#📩-installation)
+- [Future Improvements](#future-improvements)
+- [Installation](#installation)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -29,7 +29,7 @@
 
 Movierama is yet another movie catalog where users can check the movies of the week, search for movies and view details about them. The project doesn't have any backend parts but instead relies solely on [The Movie DB (TMDB)](https://www.themoviedb.org/) JSON [API](https://developer.themoviedb.org/docs/getting-started) for a data source. The application is built using TypeScript, HTML5, and CSS3. 
 
-## 🚀 Features
+## Features
 
 - **In Theaters**: Find a list of movies currently being played in cinemas.
 - **Movie Discovery**: Browse through a wide range of movies and explore detailed information about each movie, including overview, trailers, reviews, and ratings.
@@ -45,21 +45,23 @@ Movierama is yet another movie catalog where users can check the movies of the w
 
 ![Movie details](screens/landscape-movie-details.png)
 
-![Movie trailers, reviews and similar movies](screens/landscape-movie-reviews.png)
+![Movie trailers, reviews and similar movies](screens/landscape-movie-trailers.png)
 
-![Narrow view](screens/narrow-movie-details.png) ![Mobile movie details](screens/portrait-movie-details.png)
+![Narrow view](screens/narrow-movie-details.png)
 
-![Mobile movie trailers](screens/portrait-movie-trailers.png) ![Mobile movie reviews](screens/portrait-movie-reviews.png)
+| ![Mobile movie details](screens/portrait-movie-details.png) | ![Mobile movie trailers](screens/portrait-movie-trailers.png) | ![Mobile movie reviews](screens/portrait-movie-reviews.png) |
+|-------------------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------------------|
 
-## 📱 Responsive Design
+
+## Responsive Design
 
 The app is designed with responsiveness in mind, ensuring it delivers an optimal user experience across various devices and screen sizes. By utilizing responsive design techniques, such as flexible layouts, media queries, and scalable components, the interface adapts seamlessly to different resolutions, from mobile phones to desktop screens. This approach ensures that content remains accessible and easy to interact with, regardless of the user's device.
 
-## 🦯 Accessibility
+## Accessibility
 
 The app employs `rem` units instead of pixels (`px`) to enhance accessibility and improve scalability. Unlike pixels, which are fixed units, `rem` units are relative to the root font size, typically set by the user’s browser settings. This allows users who adjust their default font size for better readability—such as individuals with visual impairments—to experience a more accessible interface. By using rem, the app's layout and text scale proportionally, ensuring that all elements remain legible and usable regardless of the user's device settings or personal preferences. This approach promotes a more inclusive user experience and aligns with best practices for responsive and accessible web design.
 
-## 🛠️ Technical Decisions
+## Technical Decisions
 
 ### 1. Use of TypeScript instead of JavaScript
 
@@ -81,7 +83,7 @@ In a complete rewrite of the components, the HTML &lt;template&gt; elements were
 
 ![Using custom elements](screens/custom-elements.png)
 
-## 🏋️ Challenges
+## Challenges
 
 ### 1. Testing the components (before implementing custom elements)
 
@@ -91,7 +93,7 @@ For example calling `app.appendMovies(...)` requires a container with the class 
 
 Fortunately, rewriting the components as custom elements improved the testability, if not of the entire application at least of each individual component. 
 
-## 🌈 Future Improvements
+## Future Improvements
 
 1. **Filtering the results by genre** (new feature): A list of all the genres can help the users filter their search results (or the movies that are now "In Theaters") by genre. Clicking on a genre tag can reset the search input while also applying the filter, thus showing all movies of the selecred genre.
 
@@ -99,7 +101,7 @@ Fortunately, rewriting the components as custom elements improved the testabilit
 
 3. **Clear the search input** (new feature): Add an X button inside the search input that when clicked will clear any search terms and reset the search results. 
 
-## 📩 Installation
+## Installation
 
 1. Clone the repository:
 
