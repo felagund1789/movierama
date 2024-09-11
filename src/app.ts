@@ -199,7 +199,13 @@ class App {
       reviewsContainer.parentElement.style.display = "none"; // Hide the reviews section
     } else {
       reviews.slice(0, 2).forEach((review) => {
-        const reviewCard = new ReviewCard(review);
+        const reviewCard = new ReviewCard();
+        reviewCard.authorName = review.author_details.name;
+        reviewCard.authorUsername = review.author_details.username;
+        reviewCard.authorAvatar = review.author_details.avatar_path;
+        reviewCard.rating = review.author_details.rating.toString();
+        reviewCard.content = review.content;
+        reviewCard.reviewUrl = review.url;
         reviewsContainer.appendChild(reviewCard);
       });
     }
