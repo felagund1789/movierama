@@ -9,7 +9,8 @@ describe("VoteAverage test", () => {
   it("should have .red class if average is < 6.5", () => {
 
     // Create a new instance of VoteAverage
-    const voteaverageTag = new VoteAverage(5);
+    const voteaverageTag = new VoteAverage();
+    voteaverageTag.average = "5";
     document.body.appendChild(voteaverageTag);
 
     // Assert that the element has been created
@@ -21,7 +22,8 @@ describe("VoteAverage test", () => {
   it("should have .orange class if average is >= 6.5 and < 8.5", () => {
 
     // Create a new instance of VoteAverage
-    const voteaverageTag = new VoteAverage(7);
+    const voteaverageTag = new VoteAverage();
+    voteaverageTag.average = "7";
     document.body.appendChild(voteaverageTag);
 
     // Assert that the element has been created
@@ -33,7 +35,8 @@ describe("VoteAverage test", () => {
   it("should have .green class if average is >= 8.5", () => {
 
     // Create a new instance of VoteAverage
-    const voteaverageTag = new VoteAverage(8.5);
+    const voteaverageTag = new VoteAverage();
+    voteaverageTag.average = "8.5";
     document.body.appendChild(voteaverageTag);
 
     // Assert that the element has been created
