@@ -184,7 +184,9 @@ class App {
       trailersContainer.parentElement.style.display = "none"; // Hide the trailers section
     } else {
       trailers.filter((trailer) => trailer.site === "YouTube").slice(0, 4).forEach((trailer) => {
-        const youtubeTrailer = new YoutubeTrailer(trailer);
+        const youtubeTrailer = new YoutubeTrailer();
+        youtubeTrailer.trailerKey = trailer.key;
+        youtubeTrailer.trailerName = trailer.name;
         trailersContainer.appendChild(youtubeTrailer);
       });
     }
