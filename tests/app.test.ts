@@ -7,33 +7,11 @@ import movies from "../src/assets/data/movies.json";
 function setupDocument() {
   // reset document body
   document.body.innerHTML = "";
+  const resultsContainer = createElement("div", "results", "results");
+  const pageTitle = createElement("h2", "page-title", "page-title");
+  const searchInput = createElement("input", "search-input", "search");
 
-  // add a card template to the document
-  const template = document.createElement("template");
-  template.id = "movie-card";
-  template.innerHTML = `
-      <div class="card">
-        <a href="">
-          <img src="" alt="" class="movie-poster" />
-        </a>
-        <div class="card-content">
-          <a href="" class="movie-title"></a>
-          <div class="year-and-score">
-            <h3 class="movie-year"></h3>
-            <h3 class="movie-vote-average"></h3>
-          </div>
-          <div class="movie-genres"></div>
-          <div class="movie-overview"></div>
-        </div>
-      </div>
-    `;
-  document.body.appendChild(template);
-  
-  return {
-    resultsContainer: createElement("div", "results", "results"),
-    pageTitle: createElement("h2", "page-title", "page-title"),
-    searchInput: createElement("input", "search-input", "search"),
-  }
+  return { resultsContainer, pageTitle, searchInput };
 }
 function createElement(
   tag: string,

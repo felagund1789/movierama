@@ -1,5 +1,5 @@
 import "./app.css";
-import { GenreTag } from "./components/genreTag/genreTag";
+import { GenreTag } from "./components/genreTag/GenreTag";
 import { VoteAverage } from "./components/voteAverage/VoteAverage";
 import { MovieCard } from "./movieCard/movieCard";
 import { MovieDetails } from "./movieDetails/movieDetails";
@@ -12,6 +12,7 @@ customElements.define("youtube-trailer", YoutubeTrailer);
 customElements.define("review-card", ReviewCard);
 customElements.define("vote-average", VoteAverage);
 customElements.define("genre-tag", GenreTag);
+customElements.define("movie-card", MovieCard);
 
 class App {
 
@@ -114,11 +115,18 @@ class App {
     const results = document.querySelector<HTMLDivElement>("div.results");
     if (results) {
       movies.forEach((movie) => {
-        const movieCard = new MovieCard(movie, (event) => {
+        const movieCard = new MovieCard();
+        movieCard.posterPath = movie.poster_path;
+        movieCard.title = movie.title;
+        movieCard.releaseDate = movie.release_date;
+        movieCard.voteAverage = movie.vote_average.toString();
+        movieCard.genreIds = movie.genre_ids.join(",");
+        movieCard.overview = movie.overview;
+        movieCard.onclick = (event) => {
           event.preventDefault();
           // alert(`${movie.title}\n\n${movie.overview}`);
           this.showMovieDetails(movie);
-        });
+        }
     
         // Append the movie card to the results list
         results.appendChild(movieCard);
@@ -206,10 +214,17 @@ class App {
       similarMoviesContainer.parentElement.style.display = "none"; // Hide the similar movies section
     } else {
       movies.slice(0, 4).forEach((movie) => {
-        const similarMovieCard = new MovieCard(movie, (event) => {
+        const similarMovieCard = new MovieCard();
+        similarMovieCard.posterPath = movie.poster_path;
+        similarMovieCard.title = movie.title;
+        similarMovieCard.releaseDate = movie.release_date;
+        similarMovieCard.voteAverage = movie.vote_average.toString();
+        similarMovieCard.genreIds = movie.genre_ids.join(",");
+        similarMovieCard.overview = movie.overview;
+        similarMovieCard.onclick = (event) => {
           event.preventDefault();
           this.showMovieDetails(movie);
-        });
+        }
         similarMoviesContainer.appendChild(similarMovieCard);
       });
     }

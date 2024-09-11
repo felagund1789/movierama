@@ -1,33 +1,15 @@
 // @vitest-environment jsdom
 
-import { describe, expect, it, vitest } from "vitest";
+import { describe, expect, it } from "vitest";
+import movies from "../src/assets/data/movies.json";
+import { GenreTag } from "../src/components/genreTag/GenreTag";
 import { MovieCard } from "../src/movieCard/movieCard";
 import { Movie } from "../src/types";
-import movies from "../src/assets/data/movies.json";
-import { GenreTag } from "../src/components/genreTag/genreTag";
+import { VoteAverage } from "../src/components/voteAverage/VoteAverage";
 
 customElements.define("genre-tag", GenreTag);
-
-// add a card template to the document
-const template = document.createElement("template");
-template.id = "movie-card";
-template.innerHTML = `
-    <div class="card">
-      <a href="">
-        <img src="" alt="" class="movie-poster" />
-      </a>
-      <div class="card-content">
-        <a href="" class="movie-title"></a>
-        <div class="year-and-score">
-          <h3 class="movie-year"></h3>
-          <h3 class="movie-vote-average"></h3>
-        </div>
-        <div class="movie-genres"></div>
-        <div class="movie-overview"></div>
-      </div>
-    </div>
-  `;
-document.body.appendChild(template);
+customElements.define("vote-average", VoteAverage);
+customElements.define("movie-card", MovieCard);
 
 describe("MovieCard test", () => {
   it("should render a movie card with correct content", () => {
@@ -35,7 +17,14 @@ describe("MovieCard test", () => {
     const movie: Movie = movies[0];
 
     // Create a new instance of MovieCard
-    const movieCard = new MovieCard(movie, vitest.fn());
+    const movieCard = new MovieCard();
+    movieCard.posterPath = movie.poster_path;
+    movieCard.title = movie.title;
+    movieCard.releaseDate = movie.release_date;
+    movieCard.voteAverage = movie.vote_average.toString();
+    movieCard.genreIds = movie.genre_ids.join(",");
+    movieCard.overview = movie.overview;
+    document.body.appendChild(movieCard);
 
     // Assert that the movie card has been created
     expect(movieCard).toBeDefined();
@@ -45,7 +34,7 @@ describe("MovieCard test", () => {
     expect(movieCard.querySelector(".movie-year")?.textContent).toBe(
       movie.release_date.substring(0, 4)
     ); // year
-    expect(movieCard.querySelector(".movie-vote-average")?.textContent).toBe(
+    expect(movieCard.querySelector(".movie-vote-average")?.textContent?.trim()).toBe(
       movie.vote_average.toFixed(1)
     );
     expect(movieCard.querySelector(".movie-overview")?.textContent).toBe(
