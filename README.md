@@ -103,26 +103,14 @@ Fortunately, rewriting the components as custom elements improved the testabilit
 
 ## Installation
 
-1. Clone the repository:
+To get started with Movierama, follow these steps:
 
-  ```bash
-  git clone https://github.com/felagund1789/Frontend-MovieRama-KonstantinosKokordelis.git
-  ```
-
-2. Install the dependencies:
-
-  ```bash
-  npm install
-  ```
-
-3. Start the development server:
-
-  ```bash
-  npm run dev
-  ```
-
-4. Open your browser and visit `http://localhost:5173` to access Movierama.
-
+1. Clone the repository: `git clone https://github.com/felagund1789/Frontend-MovieRama-KonstantinosKokordelis.git`.
+2. Run `npm install` to install the required dependencies.
+3. Get a TMDB API key at [https://www.themoviedb.org/settings/api](https://www.themoviedb.org/settings/api). You'll have to create an account first.
+4. Copy `.env.example` to `.env` and replace the value of `VITE_TMDB_API_KEY=YOUR_API_KEY` with your own key
+5. Run `npm run dev` to start the web server.
+6. Open your browser and visit `http://localhost:5173` to access Movierama.
 
 ## Contributing
 
