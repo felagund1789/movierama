@@ -17,6 +17,8 @@ customElements.define("movie-details", MovieDetails);
 
 class App {
 
+  debounceTimeout = 200;
+  debounceTimer = 0;
   isFetching = false;
   currentPage = 1;
 
@@ -32,19 +34,8 @@ class App {
     searchInput?.addEventListener(
       "input",
       (event) => {
-        this.scrollToTheTop();
         const query = (event.target as HTMLInputElement).value.trim();
-        if (query.length > 0) {
-          this.isFetching = true;
-          this.currentPage = 1;
-          this.fetchSearchResults(query, this.currentPage);
-          this.updateResultsPageTitle(`Search results for "${query}"`);
-        } else {
-          this.isFetching = true;
-          this.currentPage = 1;
-          this.fetchNowPlaying(this.currentPage);
-          this.updateResultsPageTitle("In Theaters");
-        }
+        this.debounceFetchResults(query);
       },
       { passive: true }
     );
@@ -70,6 +61,28 @@ class App {
           : this.fetchSearchResults(searchValue, this.currentPage);
       }
     });
+  }
+
+  debounceFetchResults = (query: string) => {
+    clearTimeout(this.debounceTimer);
+
+    const timerId = setTimeout(() => this.fetchResults(query), this.debounceTimeout);
+    this.debounceTimer = timerId;
+  }
+
+  fetchResults = (query: string) => {
+    this.scrollToTheTop();
+    if (query.length > 0) {
+      this.isFetching = true;
+      this.currentPage = 1;
+      this.fetchSearchResults(query, this.currentPage);
+      this.updateResultsPageTitle(`Search results for "${query}"`);
+    } else {
+      this.isFetching = true;
+      this.currentPage = 1;
+      this.fetchNowPlaying(this.currentPage);
+      this.updateResultsPageTitle("In Theaters");
+    }
   }
 
   scrollToTheTop = () => {
