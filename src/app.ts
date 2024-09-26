@@ -178,6 +178,7 @@ class App {
       movieDetailsDialog.addEventListener("close", () => {
         // Enable scrolling on the body
         document.body.style.overflow = "auto";
+        movieDetailsDialog.removeChild(movieDetails);
       });
 
       movieDetailsDialog.querySelector<HTMLButtonElement>(".close-button")?.addEventListener("click", () => {
