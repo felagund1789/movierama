@@ -1,12 +1,7 @@
-import apiClient from "./api-client";
+import genreService from "./genreService";
 
-export async function fetchGenres() {
-  const response = await apiClient.getGenres();
-  return response.genres;
-}
+export const genres = (await genreService.fetchGenres()).genres;
 
 export function getGenreName(genreId: number): string {
   return genres.find((genre) => genre.id === genreId)?.name || "";
 }
-
-export const genres = await fetchGenres();
