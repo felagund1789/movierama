@@ -5,8 +5,10 @@ import { ReviewCard } from "./components/reviewCard/ReviewCard";
 import { VoteAverage } from "./components/voteAverage/VoteAverage";
 import { YoutubeTrailer } from "./components/youtubeTrailer/YoutubeTrailer";
 import { MovieDetails } from "./components/movieDetails/MovieDetails";
-import apiClient from "./services/api-client";
 import { Movie, Review, Trailer } from "./types";
+import movieService from "./services/movieService";
+import trailerService from "./services/trailerService";
+import reviewService from "./services/reviewService";
 
 customElements.define("youtube-trailer", YoutubeTrailer);
 customElements.define("review-card", ReviewCard);
@@ -157,15 +159,15 @@ class App {
     movieDetails.voteAverage = movie.vote_average.toString();
     movieDetails.genreIds = movie.genre_ids.join(",");
     movieDetails.overview = movie.overview;
-    apiClient.getMovieTrailers(movie.id).then((response) => {
+    trailerService.getMovieTrailers(movie.id).then((response) => {
       this.addMovieTrailers(movieDetails, response.results);
     });
 
-    apiClient.getMovieReviews(movie.id).then((response) => {
+    reviewService.getMovieReviews(movie.id).then((response) => {
       this.addMovieReviews(movieDetails, response.results);
     });
     
-    apiClient.getSimilarMovies(movie.id).then((response) => {
+    movieService.getSimilarMovies(movie.id).then((response) => {
       this.addSimilarMovies(movieDetails, response.results);
     });
 
@@ -263,7 +265,7 @@ class App {
   fetchSearchResults = async (query: string, page: number) => {
     this.clearErrorMessage();
     try {
-      const response = await apiClient.searchMovies({ query, page });
+      const response = await movieService.searchMovies({ query, page });
       if (page === 1) this.clearResults();
       this.appendMovies(response.results);
     } catch (error) {
@@ -277,7 +279,7 @@ class App {
   fetchNowPlaying = async (page: number) => {
     this.clearErrorMessage();
     try {
-      const response = await apiClient.getNowPlaying({ page });
+      const response = await movieService.getNowPlaying({ page });
       if (page === 1) this.clearResults();
       this.appendMovies(response.results);
     } catch (error) {
