@@ -153,9 +153,9 @@ export class MovieDetails extends HTMLElement {
                     .join("")
                 : ""
             }</div>
+            <div class="movie-overview">${this.getAttribute("overview")}</div>
             <div class="crew-container"></div>
             <div class="cast-container"></div>
-            <div class="movie-overview">${this.getAttribute("overview")}</div>
           </div>
         </div>
       </div>
