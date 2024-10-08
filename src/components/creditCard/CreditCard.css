@@ -1,0 +1,27 @@
+.credit-card {
+  width: 6rem;
+  height: 9.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding: 0 !important;
+  border-radius: 0.5rem;
+  gap: 0.125rem;
+}
+.credit-card div.profile-photo,
+.credit-card img.profile-photo {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+}
+.credit-card h3, .credit-card h4 {
+  width: 5rem;
+  font-size: small;
+  text-wrap: nowrap;
+  overflow: hidden;
+  padding: 0.125rem 0.25rem;
+}
+.credit-card h4 {
+  opacity: 0.75;
+}

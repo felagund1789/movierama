@@ -1,20 +1,22 @@
 import "./app.css";
+import { CreditCard } from "./components/creditCard/CreditCard";
 import { GenreTag } from "./components/genreTag/GenreTag";
 import { MovieCard } from "./components/movieCard/MovieCard";
+import { MovieDetails } from "./components/movieDetails/MovieDetails";
 import { ReviewCard } from "./components/reviewCard/ReviewCard";
 import { VoteAverage } from "./components/voteAverage/VoteAverage";
 import { YoutubeTrailer } from "./components/youtubeTrailer/YoutubeTrailer";
-import { MovieDetails } from "./components/movieDetails/MovieDetails";
-import { Cast, Crew, Movie, Review, Trailer } from "./types";
-import movieService from "./services/movieService";
-import trailerService from "./services/trailerService";
-import reviewService from "./services/reviewService";
 import creditService from "./services/creditService";
+import movieService from "./services/movieService";
+import reviewService from "./services/reviewService";
+import trailerService from "./services/trailerService";
+import { Cast, Crew, Movie, Review, Trailer } from "./types";
 
 customElements.define("youtube-trailer", YoutubeTrailer);
 customElements.define("review-card", ReviewCard);
 customElements.define("vote-average", VoteAverage);
 customElements.define("genre-tag", GenreTag);
+customElements.define("credit-card", CreditCard);
 customElements.define("movie-card", MovieCard);
 customElements.define("movie-details", MovieDetails);
 
@@ -212,14 +214,18 @@ class App {
 
     if (crewMembers.length) {
       crewMembers.filter((crewMember) => crewMember.job === "Director").forEach((director) => {
-        const tag = new GenreTag();
-        tag.innerText = director.name;
-        crewContainer.appendChild(tag);
+        const creditCard = new CreditCard();
+        creditCard.profilePhoto = director.profile_path;
+        creditCard.creditName = director.name;
+        creditCard.creditRole = "Director";
+        crewContainer.appendChild(creditCard);
       });
       crewMembers.filter((crewMember) => crewMember.job === "Screenplay").forEach((writer) => {
-        const tag = new GenreTag();
-        tag.innerText = writer.name;
-        crewContainer.appendChild(tag);
+        const creditCard = new CreditCard();
+        creditCard.profilePhoto = writer.profile_path;
+        creditCard.creditName = writer.name;
+        creditCard.creditRole = "Writer";
+        crewContainer.appendChild(creditCard);
       });
     }
   }
@@ -230,9 +236,11 @@ class App {
 
     if (castMembers.length) {
       castMembers.sort((a, b) => a.order - b.order).slice(0, 8).forEach((castMember) => {
-        const tag = new GenreTag();
-        tag.innerText = castMember.name;
-        castContainer.appendChild(tag);
+        const creditCard = new CreditCard();
+        creditCard.profilePhoto = castMember.profile_path;
+        creditCard.creditName = castMember.name;
+        creditCard.creditCharacter = castMember.character;
+        castContainer.appendChild(creditCard);
       });
     }
   }
