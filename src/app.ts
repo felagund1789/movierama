@@ -9,6 +9,7 @@ import { Movie, Review, Trailer } from "./types";
 import movieService from "./services/movieService";
 import trailerService from "./services/trailerService";
 import reviewService from "./services/reviewService";
+import creditService from "./services/creditService";
 
 customElements.define("youtube-trailer", YoutubeTrailer);
 customElements.define("review-card", ReviewCard);
@@ -159,6 +160,13 @@ class App {
     movieDetails.voteAverage = movie.vote_average.toString();
     movieDetails.genreIds = movie.genre_ids.join(",");
     movieDetails.overview = movie.overview;
+
+    creditService.getMovieCredits(movie.id).then((response) => {
+      console.log(response.cast.sort((a, b) => a.order - b.order).slice(0, 8));
+      console.log(response.crew.filter((member) => member.job === "Director"));
+      console.log(response.crew.filter((member) => member.job === "Screenplay"));
+    });
+
     trailerService.getMovieTrailers(movie.id).then((response) => {
       this.addMovieTrailers(movieDetails, response.results);
     });
