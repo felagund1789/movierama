@@ -10,7 +10,14 @@ import creditService from "./services/creditService";
 import movieService from "./services/movieService";
 import reviewService from "./services/reviewService";
 import trailerService from "./services/trailerService";
-import { Cast, Crew, Movie, Review, Trailer } from "./types";
+import {
+  Cast,
+  Crew,
+  Movie,
+  MovieDetails as MovieFull,
+  Review,
+  Trailer
+} from "./types";
 
 customElements.define("youtube-trailer", YoutubeTrailer);
 customElements.define("review-card", ReviewCard);
@@ -143,8 +150,9 @@ class App {
         movieCard.overview = movie.overview;
         movieCard.onclick = (event) => {
           event.preventDefault();
-          // alert(`${movie.title}\n\n${movie.overview}`);
-          this.showMovieDetails(movie);
+          movieService.getMovieDetails(movie.id).then((movieDetails) => {
+            this.showMovieDetails(movieDetails);
+          });
         }
     
         // Append the movie card to the results list
@@ -153,14 +161,15 @@ class App {
     }
   }
   
-  showMovieDetails = (movie: Movie) => {
+  showMovieDetails = (movie: MovieFull) => {
     const movieDetails = new MovieDetails();
     movieDetails.backdropPath = movie.backdrop_path;
     movieDetails.posterPath = movie.poster_path;
     movieDetails.title = movie.title;
     movieDetails.releaseDate = movie.release_date;
+    movieDetails.runtime = movie.runtime.toString();
     movieDetails.voteAverage = movie.vote_average.toString();
-    movieDetails.genreIds = movie.genre_ids.join(",");
+    movieDetails.genres = movie.genres.map(genre => genre.name).join(",");
     movieDetails.overview = movie.overview;
 
     creditService.getMovieCredits(movie.id).then((response) => {
@@ -301,7 +310,9 @@ class App {
         similarMovieCard.overview = movie.overview;
         similarMovieCard.onclick = (event) => {
           event.preventDefault();
-          this.showMovieDetails(movie);
+          movieService.getMovieDetails(movie.id).then((movieDetails) => {
+            this.showMovieDetails(movieDetails);
+          });
         }
         similarMoviesContainer.appendChild(similarMovieCard);
       });

@@ -6,7 +6,7 @@
   align-items: start;
   justify-content: start;
   padding: 0 !important;
-  border-radius: 0.5rem;
+  border-radius: 4px;
   gap: 0.125rem;
 }
 .credit-card div.profile-photo,

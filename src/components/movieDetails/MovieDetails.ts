@@ -1,4 +1,3 @@
-import { getGenreName } from "../../services/genres";
 import "./MovieDetails.css";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
@@ -66,15 +65,27 @@ export class MovieDetails extends HTMLElement {
     }
   }
 
-  get genreIds(): string | null {
-    return this.getAttribute("genre-ids");
+  get runtime(): string | null {
+    return this.getAttribute("runtime");
   }
 
-  set genreIds(value: string | null) {
+  set runtime(value: string | null) {
     if (value) {
-      this.setAttribute("genre-ids", value);
+      this.setAttribute("runtime", value);
     } else {
-      this.removeAttribute("genre-ids");
+      this.removeAttribute("runtime");
+    }
+  }
+
+  get genres(): string | null {
+    return this.getAttribute("genres");
+  }
+
+  set genres(value: string | null) {
+    if (value) {
+      this.setAttribute("genres", value);
+    } else {
+      this.removeAttribute("genres");
     }
   }
 
@@ -117,15 +128,15 @@ export class MovieDetails extends HTMLElement {
           <div class="details-text">
             <h2 class="movie-title">${this.getAttribute("title")}</h2>
             <div class="year-and-score">
-              <h3 class="movie-year">${this.getAttribute("release-date")?.substring(0, 4) || ""}</h3>
+              <h3 class="movie-year">${this.getAttribute("release-date")?.substring(0, 4) || ""}</h3> • 
+              <h3>${this.convertMinutesToHoursAndMinutes(this.getAttribute("runtime"))}</h3> • 
               <vote-average average="${this.getAttribute("vote-average")}" />
             </div>
             <div class="movie-genres">${
-              this.getAttribute("genre-ids")
-                ? this.getAttribute("genre-ids")!
+              this.getAttribute("genres")
+                ? this.getAttribute("genres")!
                     .split(",")
-                    .map((id) => getGenreName(parseInt(id)))
-                    .map((name) => `<genre-tag>${name}</genre-tag>`)
+                    .map((genre) => `<genre-tag>${genre}</genre-tag>`)
                     .join("")
                 : ""
             }</div>
@@ -147,5 +158,14 @@ export class MovieDetails extends HTMLElement {
         <h2>Similar movies</h2>
         <div class="movies"></div>
       </div>`;
+  }
+
+  convertMinutesToHoursAndMinutes = (input: string | null): string => {
+    if (!input) return "";
+    
+    const minutes = parseInt(input);
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}h ${remainingMinutes}m`;
   }
 }

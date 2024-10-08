@@ -1,4 +1,4 @@
-import { Movie } from "../types";
+import { Movie, MovieDetails } from "../types";
 import apiClient from "./api-client";
 
 interface MoviesResponse {
@@ -14,6 +14,10 @@ interface SearchParms {
 }
 
 class MovieService {
+  
+  getMovieDetails = async (movieId: number): Promise<MovieDetails> => {
+    return apiClient.fetch<MovieDetails>(`/movie/${movieId}?`);
+  }
   
   getNowPlaying = async ({ page }: { page: number }): Promise<MoviesResponse> => {
     return apiClient.fetch<MoviesResponse>(`/movie/now_playing?page=${page.toString()}`);
