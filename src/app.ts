@@ -5,7 +5,7 @@ import { ReviewCard } from "./components/reviewCard/ReviewCard";
 import { VoteAverage } from "./components/voteAverage/VoteAverage";
 import { YoutubeTrailer } from "./components/youtubeTrailer/YoutubeTrailer";
 import { MovieDetails } from "./components/movieDetails/MovieDetails";
-import { Movie, Review, Trailer } from "./types";
+import { Cast, Crew, Movie, Review, Trailer } from "./types";
 import movieService from "./services/movieService";
 import trailerService from "./services/trailerService";
 import reviewService from "./services/reviewService";
@@ -162,9 +162,8 @@ class App {
     movieDetails.overview = movie.overview;
 
     creditService.getMovieCredits(movie.id).then((response) => {
-      console.log(response.cast.sort((a, b) => a.order - b.order).slice(0, 8));
-      console.log(response.crew.filter((member) => member.job === "Director"));
-      console.log(response.crew.filter((member) => member.job === "Screenplay"));
+      this.addMovieCrew(movieDetails, response.crew);
+      this.addMovieCast(movieDetails, response.cast);
     });
 
     trailerService.getMovieTrailers(movie.id).then((response) => {
@@ -204,6 +203,37 @@ class App {
       setTimeout(() => {
         document.body.style.overflow = "hidden";
       }, 500);
+    }
+  }
+
+  addMovieCrew = (movieDetails: MovieDetails, crewMembers: Crew[]): void => {
+    const crewContainer = movieDetails.querySelector<HTMLDivElement>(".crew-container");
+    if (!crewContainer) return;
+
+    if (crewMembers.length) {
+      crewMembers.filter((crewMember) => crewMember.job === "Director").forEach((director) => {
+        const tag = new GenreTag();
+        tag.innerText = director.name;
+        crewContainer.appendChild(tag);
+      });
+      crewMembers.filter((crewMember) => crewMember.job === "Screenplay").forEach((writer) => {
+        const tag = new GenreTag();
+        tag.innerText = writer.name;
+        crewContainer.appendChild(tag);
+      });
+    }
+  }
+
+  addMovieCast = (movieDetails: MovieDetails, castMembers: Cast[]): void => {
+    const castContainer = movieDetails.querySelector<HTMLDivElement>(".cast-container");
+    if (!castContainer) return;
+
+    if (castMembers.length) {
+      castMembers.sort((a, b) => a.order - b.order).slice(0, 8).forEach((castMember) => {
+        const tag = new GenreTag();
+        tag.innerText = castMember.name;
+        castContainer.appendChild(tag);
+      });
     }
   }
 

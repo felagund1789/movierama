@@ -127,6 +127,8 @@
   background-color: var(--red-color);
 }
 
+.details .details-text .crew-container,
+.details .details-text .cast-container,
 .details .details-text .movie-genres {
   margin-top: .5rem;
   display: flex;
