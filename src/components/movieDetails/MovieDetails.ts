@@ -77,6 +77,18 @@ export class MovieDetails extends HTMLElement {
     }
   }
 
+  get imdbId(): string | null {
+    return this.getAttribute("imdb-id");
+  }
+
+  set imdbId(value: string | null) {
+    if (value) {
+      this.setAttribute("imdb-id", value);
+    } else {
+      this.removeAttribute("imdb-id");
+    }
+  }
+
   get genres(): string | null {
     return this.getAttribute("genres");
   }
@@ -130,6 +142,7 @@ export class MovieDetails extends HTMLElement {
             <div class="year-and-score">
               <h3 class="movie-year">${this.getAttribute("release-date")?.substring(0, 4) || ""}</h3> • 
               <h3>${this.convertMinutesToHoursAndMinutes(this.getAttribute("runtime"))}</h3> • 
+              <imdb-tag imdb-id="${this.getAttribute("imdb-id")}"></imdb-tag> • 
               <vote-average average="${this.getAttribute("vote-average")}" />
             </div>
             <div class="movie-genres">${

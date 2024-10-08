@@ -1,6 +1,7 @@
 import "./app.css";
 import { CreditCard } from "./components/creditCard/CreditCard";
 import { GenreTag } from "./components/genreTag/GenreTag";
+import { ImdbTag } from "./components/imdbTag/ImdbTag";
 import { MovieCard } from "./components/movieCard/MovieCard";
 import { MovieDetails } from "./components/movieDetails/MovieDetails";
 import { ReviewCard } from "./components/reviewCard/ReviewCard";
@@ -23,6 +24,7 @@ customElements.define("youtube-trailer", YoutubeTrailer);
 customElements.define("review-card", ReviewCard);
 customElements.define("vote-average", VoteAverage);
 customElements.define("genre-tag", GenreTag);
+customElements.define("imdb-tag", ImdbTag);
 customElements.define("credit-card", CreditCard);
 customElements.define("movie-card", MovieCard);
 customElements.define("movie-details", MovieDetails);
@@ -168,6 +170,7 @@ class App {
     movieDetails.title = movie.title;
     movieDetails.releaseDate = movie.release_date;
     movieDetails.runtime = movie.runtime.toString();
+    movieDetails.imdbId = movie.imdb_id;
     movieDetails.voteAverage = movie.vote_average.toString();
     movieDetails.genres = movie.genres.map(genre => genre.name).join(",");
     movieDetails.overview = movie.overview;
