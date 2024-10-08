@@ -147,8 +147,8 @@ class App {
         movieCard.posterPath = movie.poster_path;
         movieCard.title = movie.title;
         movieCard.releaseDate = movie.release_date;
-        movieCard.voteAverage = movie.vote_average.toString();
-        movieCard.genreIds = movie.genre_ids.join(",");
+        movieCard.voteAverage = movie.vote_average?.toString();
+        movieCard.genreIds = movie.genre_ids?.join(",");
         movieCard.overview = movie.overview;
         movieCard.onclick = (event) => {
           event.preventDefault();
@@ -169,9 +169,9 @@ class App {
     movieDetails.posterPath = movie.poster_path;
     movieDetails.title = movie.title;
     movieDetails.releaseDate = movie.release_date;
-    movieDetails.runtime = movie.runtime.toString();
+    movieDetails.runtime = movie.runtime?.toString();
     movieDetails.imdbId = movie.imdb_id;
-    movieDetails.voteAverage = movie.vote_average.toString();
+    movieDetails.voteAverage = movie.vote_average?.toString();
     movieDetails.genres = movie.genres.map(genre => genre.name).join(",");
     movieDetails.overview = movie.overview;
 
@@ -287,7 +287,7 @@ class App {
         reviewCard.authorName = review.author_details.name;
         reviewCard.authorUsername = review.author_details.username;
         reviewCard.authorAvatar = review.author_details.avatar_path;
-        reviewCard.rating = review.author_details.rating.toString();
+        reviewCard.rating = review.author_details.rating?.toString();
         reviewCard.content = review.content;
         reviewCard.reviewUrl = review.url;
         reviewsContainer.appendChild(reviewCard);
@@ -308,7 +308,7 @@ class App {
         similarMovieCard.posterPath = movie.poster_path;
         similarMovieCard.title = movie.title;
         similarMovieCard.releaseDate = movie.release_date;
-        similarMovieCard.voteAverage = movie.vote_average.toString();
+        similarMovieCard.voteAverage = movie.vote_average?.toString();
         similarMovieCard.genreIds = movie.genre_ids.join(",");
         similarMovieCard.overview = movie.overview;
         similarMovieCard.onclick = (event) => {
@@ -329,6 +329,7 @@ class App {
       if (page === 1) this.clearResults();
       this.appendMovies(response.results);
     } catch (error) {
+      console.error(error);
       this.currentPage--;
       this.showErrorMessage("Error fetching search results");
     } finally {
@@ -343,6 +344,7 @@ class App {
       if (page === 1) this.clearResults();
       this.appendMovies(response.results);
     } catch (error) {
+      console.error(error);
       this.currentPage--;
       this.showErrorMessage("Error fetching now playing");
     } finally {
