@@ -77,44 +77,75 @@ export class ReviewCard extends HTMLElement {
 
   constructor() {
     super();
-  }
-
-  connectedCallback() {
     this.innerHTML = `<div class="review-card">
       <div class="author">
-        ${
-          (this.getAttribute("author-avatar") &&
-            `<img src="${imageBaseURL}${this.getAttribute("author-avatar")}" 
-            alt="${this.getAttribute("author-username")}" 
-            title="${this.getAttribute("author-username")}" 
-            class="author-avatar" />`) ||
-          ""
-        }
-        ${
-          this.getAttribute("author-name")
-            ? `<h3 class="author-name">${this.getAttribute("author-name")}</h3>`
-            : ""
-        }
-        <h4 class="author-username">@${this.getAttribute(
-          "author-username"
-        )}</h4>
+        <img src="" alt="" title="" class="author-avatar" />
+        <h3 class="author-name"></h3>
+        <h4 class="author-username"></h4>
       </div>
       <div class="review">
         <div class="review-score">
-          <span class="star">${this.fillStar(0)}</span>
-          <span class="star">${this.fillStar(1)}</span>
-          <span class="star">${this.fillStar(2)}</span>
-          <span class="star">${this.fillStar(3)}</span>
-          <span class="star">${this.fillStar(4)}</span>
+          <span class="star"></span>
+          <span class="star"></span>
+          <span class="star"></span>
+          <span class="star"></span>
+          <span class="star"></span>
         </div>
         <div class="review-content">
-          <a href="${this.getAttribute("review-url")}" target="_blank">${
-      this.getAttribute("author-name") || this.getAttribute("author-username")
-    }'s review</a>
-          <p>${this.getAttribute("content")}</p>
+          <a href="" target="_blank"></a>
+          <p></p>
         </div>
       </div>
     </div>`;
+  }
+
+  connectedCallback() {
+    const avatarPath = this.getAttribute("author-avatar");
+    const name = this.getAttribute("author-name");
+    const username = this.getAttribute("author-username");
+    const rating = this.getAttribute("rating");
+    const content = this.getAttribute("content");
+
+    const authorAvatar = this.querySelector<HTMLImageElement>(".author .author-avatar");
+    if (authorAvatar && avatarPath) {
+      authorAvatar.src = imageBaseURL + avatarPath;
+      authorAvatar.title = username ?? "";
+      authorAvatar.alt = username ?? ";"
+    } else {
+      authorAvatar?.remove();
+    }
+
+    const authorName = this.querySelector<HTMLHeadingElement>(".author .author-name");
+    if (authorName && name) {
+      authorName.innerText = name ?? "";
+    } else {
+      authorName?.remove();
+    }
+
+    const authorUsername = this.querySelector<HTMLHeadingElement>(".author .author-username");
+    if (authorUsername && username) {
+      authorUsername.innerText = `@${username}` ?? "";
+    } else {
+      authorUsername?.remove();
+    }
+
+    const reviewStars = this.querySelectorAll<HTMLSpanElement>(".review .review-score .star");
+    if (reviewStars && rating) {
+      reviewStars.forEach((span, index) => {
+        span.innerHTML = this.fillStar(index);
+      });
+    }
+
+    const reviewTitle = this.querySelector<HTMLAnchorElement>(".review .review-content a");
+    if (reviewTitle) {
+      reviewTitle.href = this.getAttribute("review-url") ?? "";
+      reviewTitle.innerText = `${name || username}'s review`;
+    }
+
+    const reviewContent = this.querySelector<HTMLParagraphElement>(".review .review-content p");
+    if (reviewContent && content) {
+      reviewContent.innerText = content;
+    }
   }
 
   fillStar = (index: number): string => {
