@@ -144,8 +144,39 @@ export class ReviewCard extends HTMLElement {
 
     const reviewContent = this.querySelector<HTMLParagraphElement>(".review .review-content p");
     if (reviewContent && content) {
-      reviewContent.innerText = content;
+      if (content.length < 350) {
+        reviewContent.innerText = content;
+      } else {
+        reviewContent.innerText = content.substring(0, 350) + "... ";
+        reviewContent.appendChild(this.getMoreButton());
+      }
     }
+  }
+
+  getMoreButton = () => {
+    const reviewContent = this.querySelector<HTMLParagraphElement>(".review .review-content p");
+    const moreButton = document.createElement("button");
+    moreButton.innerText = "Show more";
+    moreButton.onclick = () => {
+      if (reviewContent) {
+        reviewContent.innerText = this.getAttribute("content") ?? "";
+        reviewContent.appendChild(this.getLessButton());
+      }
+    }
+    return moreButton;
+  }
+
+  getLessButton = () => {
+    const reviewContent = this.querySelector<HTMLParagraphElement>(".review .review-content p");
+    const lessButton = document.createElement("button");
+    lessButton.innerText = "Show less";
+    lessButton.onclick = () => {
+      if (reviewContent) {
+        reviewContent.innerText = this.getAttribute("content") ? this.getAttribute("content")?.substring(0, 350) + "... " : "";
+        reviewContent.appendChild(this.getMoreButton());
+      }
+    }
+    return lessButton;
   }
 
   fillStar = (index: number): string => {
