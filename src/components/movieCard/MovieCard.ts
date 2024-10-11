@@ -1,4 +1,6 @@
 import { getGenreName } from "../../services/genres";
+import { GenreTag } from "../genreTag/GenreTag";
+import { VoteAverage } from "../voteAverage/VoteAverage";
 import "./MovieCard.css";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
@@ -78,37 +80,36 @@ export class MovieCard extends HTMLElement {
 
   constructor() {
     super();
+    this.innerHTML = `<div class="card">
+      <a href="">
+        <img src="" alt="" title="" class="movie-poster" />
+      </a>
+      <div class="card-content">
+        <a href="" class="movie-title"></a>
+        <div class="year-and-score">
+          <h3 class="movie-year"></h3>
+          <vote-average average="" />
+        </div>
+        <div class="movie-genres"></div>
+        <div class="movie-overview"></div>
+      </div>
+    </div>`;
   }
 
   connectedCallback() {
-    this.innerHTML = `<div class="card">
-      <a href="">
-        <img src="${
-          this.getAttribute("poster-path")
-            ? `${imageBaseURL}${this.getAttribute("poster-path")}`
-            : "/poster-placeholder-dark.png"
-        }"
-          alt="${this.getAttribute("title")}"
-          title="${this.getAttribute("title")}"
-          class="movie-poster" />
-      </a>
-      <div class="card-content">
-        <a href="" class="movie-title">${this.getAttribute("title")}</a>
-        <div class="year-and-score">
-          <h3 class="movie-year">${this.getAttribute("release-date")?.substring(0, 4) || ""}</h3>
-          <vote-average average="${this.getAttribute("vote-average")}" />
-        </div>
-        <div class="movie-genres">${
-          this.getAttribute("genre-ids")
-            ? this.getAttribute("genre-ids")!
-                .split(",")
-                .map((id) => getGenreName(parseInt(id)))
-                .map((name) => `<genre-tag>${name}</genre-tag>`)
-                .join("")
-            : ""
-        }</div>
-        <div class="movie-overview">${this.getAttribute("overview")}</div>
-      </div>
-    </div>`;
+    this.querySelector<HTMLImageElement>(".movie-poster")!.src = `${imageBaseURL}${this.posterPath}`;
+    this.querySelector<HTMLImageElement>(".movie-poster")!.alt = this.movieTitle!;
+    this.querySelector<HTMLImageElement>(".movie-poster")!.title = this.movieTitle!;
+    this.querySelector<HTMLHeadingElement>(".movie-title")!.textContent = this.movieTitle || "";
+    this.querySelector<HTMLHeadingElement>(".movie-year")!.textContent = this.releaseDate?.split("-")[0] || "";
+    this.querySelector<VoteAverage>("vote-average")!.average = this.voteAverage;
+    this.genreIds?.split(",")
+      .map((genreId: string) => parseInt(genreId))
+      .forEach((genreId: number) => {
+        const genreElement = new GenreTag();
+        genreElement.innerText = getGenreName(genreId);
+        this.querySelector<HTMLDivElement>(".movie-genres")!.appendChild(genreElement);
+      });
+    this.querySelector<HTMLDivElement>(".movie-overview")!.textContent = this.overview || "";
   }
 }
