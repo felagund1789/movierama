@@ -30,12 +30,14 @@ export class YoutubeTrailer extends HTMLElement {
 
   constructor() {
     super();
+    this.innerHTML = `<div class="trailer">
+      <iframe class="video" src=""></iframe>
+      <h3 class="trailer-title"></h3>
+    </div>`;
   }
 
   connectedCallback() {
-    this.innerHTML = `<div class="trailer">
-      <iframe class="video" src="${youtubeBaseURL}${this.getAttribute("trailerKey")}"></iframe>
-      <h3 class="trailer-title">${this.getAttribute("trailerName")}</h3>
-    </div>`;
+    this.querySelector<HTMLIFrameElement>(".video")!.src = `${youtubeBaseURL}${this.getAttribute("trailerKey")}`;
+    this.querySelector<HTMLHeadingElement>(".trailer-title")!.textContent = this.getAttribute("trailerName");
   }
 }
