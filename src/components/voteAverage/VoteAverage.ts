@@ -16,12 +16,12 @@ export class VoteAverage extends HTMLElement {
 
   constructor() {
     super();
+    this.innerHTML = `<h3 class="movie-vote-average"></h3>`;
   }
 
   connectedCallback() {
-    this.innerHTML = `<h3 class="movie-vote-average ${this.getColor()}">
-      ${this.average ? parseFloat(this.average).toFixed(1) : "0.0"}
-    </h3>`;
+    this.querySelector<HTMLHeadingElement>(".movie-vote-average")!.classList.add(this.getColor());
+    this.querySelector<HTMLHeadingElement>(".movie-vote-average")!.textContent = `${this.average ? parseFloat(this.average).toFixed(1) : "0.0"}`;
   }
 
   getColor(): string {
