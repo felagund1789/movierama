@@ -1,3 +1,6 @@
+import { GenreTag } from "../genreTag/GenreTag";
+import { ImdbTag } from "../imdbTag/ImdbTag";
+import { VoteAverage } from "../voteAverage/VoteAverage";
 import "./MovieDetails.css";
 
 const imageBaseURL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
@@ -115,45 +118,24 @@ export class MovieDetails extends HTMLElement {
 
   constructor() {
     super();
-  }
-
-  connectedCallback() {
-    this.innerHTML = `<div class="details" ${
-        this.getAttribute("backdrop-path")
-          ? `style="background-image: url(${imageFullBaseURL}${this.getAttribute("backdrop-path")})"`
-          : ""
-      }>
+    this.innerHTML = `<div class="details">
         <button class="close-button">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
             <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
           </svg>
         </button>
         <div class="details-content">
-          <img src="${
-            this.getAttribute("poster-path")
-              ? `${imageBaseURL}${this.getAttribute("poster-path")}`
-              : "/poster-placeholder-dark.png"
-          }"
-            alt="${this.getAttribute("title")}"
-            title="${this.getAttribute("title")}"
-            class="movie-poster" />
+          <img src="" alt="" title="" class="movie-poster" />
           <div class="details-text">
-            <h2 class="movie-title">${this.getAttribute("title")}</h2>
+            <h2 class="movie-title"></h2>
             <div class="year-and-score">
-              <h3 class="movie-year">${this.getAttribute("release-date")?.substring(0, 4) || ""}</h3> • 
-              <h3>${this.convertMinutesToHoursAndMinutes(this.getAttribute("runtime"))}</h3> • 
-              <imdb-tag imdb-id="${this.getAttribute("imdb-id")}"></imdb-tag> • 
-              <vote-average average="${this.getAttribute("vote-average")}" />
+              <h3 class="movie-year"></h3> • 
+              <h3 class="duration"></h3> • 
+              <imdb-tag></imdb-tag> • 
+              <vote-average />
             </div>
-            <div class="movie-genres">${
-              this.getAttribute("genres")
-                ? this.getAttribute("genres")!
-                    .split(",")
-                    .map((genre) => `<genre-tag>${genre}</genre-tag>`)
-                    .join("")
-                : ""
-            }</div>
-            <div class="movie-overview">${this.getAttribute("overview")}</div>
+            <div class="movie-genres"></div>
+            <div class="movie-overview"></div>
             <div class="crew-container"></div>
             <div class="cast-container"></div>
           </div>
@@ -171,6 +153,24 @@ export class MovieDetails extends HTMLElement {
         <h2>Similar movies</h2>
         <div class="movies"></div>
       </div>`;
+  }
+
+  connectedCallback() {
+    this.querySelector<HTMLDivElement>(".details")!.style.backgroundImage = `url(${imageFullBaseURL}${this.backdropPath})`;
+    this.querySelector<HTMLImageElement>(".movie-poster")!.src = `${imageBaseURL}${this.posterPath}`;
+    this.querySelector<HTMLImageElement>(".movie-poster")!.alt = this.movieTitle || "";
+    this.querySelector<HTMLImageElement>(".movie-poster")!.title = this.movieTitle || "";
+    this.querySelector<HTMLHeadingElement>(".movie-title")!.textContent = this.movieTitle || "";
+    this.querySelector<HTMLHeadingElement>(".movie-year")!.textContent = this.releaseDate?.split("-")[0] || "";
+    this.querySelector<HTMLHeadingElement>(".duration")!.textContent = this.convertMinutesToHoursAndMinutes(this.runtime);
+    this.querySelector<VoteAverage>("vote-average")!.average = this.voteAverage;
+    this.querySelector<ImdbTag>("imdb-tag")!.imdbId = this.imdbId;
+    this.genres?.split(",").forEach((genre: string) => {
+      const genreElement = new GenreTag();
+      genreElement.innerText = genre;
+      this.querySelector<HTMLDivElement>(".movie-genres")!.appendChild(genreElement);
+    });
+    this.querySelector<HTMLDivElement>(".movie-overview")!.textContent = this.overview || "";
   }
 
   convertMinutesToHoursAndMinutes = (input: string | null): string => {
