@@ -124,7 +124,7 @@ export class ReviewCard extends HTMLElement {
 
     const authorUsername = this.querySelector<HTMLHeadingElement>(".author .author-username");
     if (authorUsername && username) {
-      authorUsername.innerText = `@${username}` ?? "";
+      authorUsername.innerText = `@${username}`;
     } else {
       authorUsername?.remove();
     }

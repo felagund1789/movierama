@@ -157,7 +157,7 @@ export class MovieDetails extends HTMLElement {
 
   connectedCallback() {
     this.querySelector<HTMLDivElement>(".details")!.style.backgroundImage = `url(${imageFullBaseURL}${this.backdropPath})`;
-    this.querySelector<HTMLImageElement>(".movie-poster")!.src = `${imageBaseURL}${this.posterPath}`;
+    this.querySelector<HTMLImageElement>(".movie-poster")!.src = this.posterPath ? `${imageBaseURL}${this.posterPath}` : "/poster-placeholder-dark.png";
     this.querySelector<HTMLImageElement>(".movie-poster")!.alt = this.movieTitle || "";
     this.querySelector<HTMLImageElement>(".movie-poster")!.title = this.movieTitle || "";
     this.querySelector<HTMLHeadingElement>(".movie-title")!.textContent = this.movieTitle || "";
